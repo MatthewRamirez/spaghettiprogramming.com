@@ -1,0 +1,12 @@
+-if @category.nil?
+  .well
+    %h2= "Blog"
+-else
+  .well
+    %h2
+      ="#{@category.name} Posts"
+.row-fluid
+  - if @blog_posts.empty?
+    No posts
+  - else
+    = render @blog_posts
