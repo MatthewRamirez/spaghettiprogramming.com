@@ -34,7 +34,8 @@
                 =link_to 'Projects <b class="caret"></b>'.html_safe, "#", "data-toggle" => "dropdown", "class" => "dropdown-toggle", "id" => "advertisement_dropdown", "role" => "button"
                 %ul.dropdown-menu{ :role => :menu, "aria-labelledby" => "advertisement_dropdown" }
                   /TODO make this list dynamic based upon advertisement start and end dates
-                  %li= link_to "Compression Calculator", '#', :tabindex => "-1"
+                  %li= link_to "Compression Calculator", compression_calculator_path, :tabindex => "-1"
+                  %li= link_to "copypastr.com", 'http://copypastr.com', :tabindex => "-1"
               -if signed_in?
                 %li= link_to "New Blog Post", new_blog_post_path
                 %li= link_to "New Category", new_category_path
@@ -57,8 +58,9 @@
           .span2
             .well.sidebar-nav
               %ul.nav.nav-list
-                %li.nav-header other projects
-                %li= link_to "Link 1", "#"
+                %li.nav-header projects
+                %li= link_to "Compression Calculator", compression_calculator_path
+                %li= link_to "copypastr.com", 'http://copypastr.com'
       %p
         %footer
           ="&copy; Spaghetti Programming #{Time.now().strftime("%Y")}".html_safe

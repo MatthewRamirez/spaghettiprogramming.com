@@ -10,6 +10,7 @@ SpaghettiprogrammingCom::Application.routes.draw do
 
   get '/home', :to => 'pages#home'
   get '/', :to => 'pages#home'
+  get '/compression_calculator', :to => 'pages#compression_calculator', :as => :compression_calculator
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
   match '/auth/:provider/callback' => 'sessions#create'
