@@ -1,3 +1,4 @@
+%br
 %h2=link_to blog_post.title, blog_post_path(blog_post.id)
 %h5= "Posted on #{blog_post.created_at.strftime("%Y-%m-%d")}"
 -if signed_in?
@@ -5,3 +6,4 @@
     =link_to :edit, edit_blog_post_path(blog_post.id)
     =link_to :delete, blog_post_path(blog_post.id), :method => :delete
 %p= blog_post.rendered_content.html_safe
+%br
