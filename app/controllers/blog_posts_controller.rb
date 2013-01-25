@@ -9,7 +9,7 @@ class BlogPostsController < ApplicationController
       @category = Category.find params[:category_id]
       @blog_posts = @category.blog_posts
     else
-      @blog_posts = BlogPost.all
+      @blog_posts = BlogPost.limit 5
     end
   end
 
