@@ -7,14 +7,26 @@ class BlogPostsController < ApplicationController
     @title = "Blog Posts"
     if params.has_key? :category_id
       @category = Category.find params[:category_id]
-      @blog_posts = @category.blog_posts
+      @blog_posts = @category.blog_posts.published
     else
-      @blog_posts = BlogPost.limit 5
+      @blog_posts = BlogPost.published.limit 5
+    end
+  end
+
+  def unpublished_index
+    redirect_to root_path and return unless signed_in?
+    @title = "Unpublished Blog Posts"
+    if params.has_key? :category_id
+      @category = Category.find params[:category_id]
+      @blog_posts = @category.blog_posts.unpublished
+    else
+      @blog_posts = BlogPost.unpublished
+      render 'blog_posts/index'
     end
   end
 
   def show
-    @blog_post = BlogPost.find params[:id]
+    @blog_post = signed_in? ? BlogPost.find(params[:id]) : BlogPost.published.find(params[:id])
   end
 
   def new

@@ -11,19 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130122005730) do
+ActiveRecord::Schema.define(:version => 20130204171915) do
 
   create_table "blog_posts", :force => true do |t|
-    t.text     "title",            :null => false
-    t.text     "body",             :null => false
+    t.text     "title",                              :null => false
+    t.text     "body",                               :null => false
     t.integer  "category_id"
     t.integer  "user_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.text     "rendered_content"
+    t.boolean  "published",        :default => true, :null => false
   end
 
   add_index "blog_posts", ["category_id"], :name => "index_blog_posts_on_category_id"
+  add_index "blog_posts", ["published"], :name => "index_blog_posts_on_published"
 
   create_table "categories", :force => true do |t|
     t.text     "name",       :null => false

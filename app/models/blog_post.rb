@@ -3,9 +3,17 @@ class BlogPost < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
 
-  attr_accessible :title, :body, :user_id, :category_id
+  attr_accessible :title, :body, :user_id, :category_id, :published
 
   before_save :render_content
+
+  def self.published
+    where :published => true
+  end
+
+  def self.unpublished
+    where :published => false
+  end
 
   private
   def render_content
@@ -29,5 +37,6 @@ end
 #  created_at       :datetime        not null
 #  updated_at       :datetime        not null
 #  rendered_content :text
+#  published        :boolean         default(TRUE), not null
 #
 

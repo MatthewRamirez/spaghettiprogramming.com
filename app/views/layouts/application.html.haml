@@ -37,6 +37,7 @@
                   %li= link_to "Compression Calculator", compression_calculator_path, :tabindex => "-1"
                   %li= link_to "copypastr.com", 'http://copypastr.com', :tabindex => "-1"
               -if signed_in?
+                %li= link_to "Unpublished Blog Posts", unpublished_blog_posts_path
                 %li= link_to "New Blog Post", new_blog_post_path
                 %li= link_to "New Category", new_category_path
                 %li= link_to "Sign out", signout_path

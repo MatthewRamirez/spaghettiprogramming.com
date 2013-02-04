@@ -18,5 +18,6 @@ end
 #  created_at       :datetime        not null
 #  updated_at       :datetime        not null
 #  rendered_content :text
+#  published        :boolean         default(TRUE), not null
 #
 
