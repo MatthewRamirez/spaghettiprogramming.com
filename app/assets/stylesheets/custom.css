@@ -5115,3 +5115,6 @@ a.badge:hover {
 .affix {
   position: fixed;
 }
+code {
+    white-space: pre;
+}
