@@ -51,17 +51,21 @@
           .span2
             .well.sidebar-nav
               %ul.nav.nav-list
-                %li.nav-header categories
-                %li= link_to "Blog", blog_posts_path
-                -categories.each do |category|
-                  %li
-                    =link_to category.name, category_blog_posts_path(category.id)
-                    -if signed_in?
-                      =link_to :edit, edit_category_path(category)
-              %ul.nav.nav-list
-                %li.nav-header projects
-                %li= link_to "Compression Calculator", compression_calculator_path
-                %li= link_to "copypastr.com", 'http://copypastr.com'
+                %li.nav-header Menu
+                %li= link_to "Home", root_path
+                %li.dropdown
+                  =link_to 'Categories <b class="caret"></b>'.html_safe, "#", "data-toggle" => "dropdown", "class" => "dropdown-toggle", "id" => "category_dropdown", "role" => "button"
+                  %ul.dropdown-menu{ :role => :menu, "aria-labelledby" => "category_dropdown" }
+                    -categories.each do |category|
+                      %li
+                        =link_to category.name, category_blog_posts_path(category.id)
+                        -if signed_in?
+                          =link_to :edit, edit_category_path(category)
+                %li.dropdown
+                  =link_to 'Projects <b class="caret"></b>'.html_safe, "#", "data-toggle" => "dropdown", "class" => "dropdown-toggle", "id" => "project_dropdown", "role" => "button"
+                  %ul.dropdown-menu{ :role => :menu, "aria-labelledby" => "project_dropdown" }
+                    %li= link_to "Compression Calculator", compression_calculator_path
+                    %li= link_to "copypastr.com", 'http://copypastr.com', :target => '_blank'
           .span8
             = yield
       %p
