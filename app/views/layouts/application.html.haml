@@ -18,30 +18,33 @@
 
 
   %body
-    .navbar.navbar-fluid-top
-      .navbar-inner
-        .container-fluid
-          %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          %a.brand(href="/") spaghettiprogramming.com
-          .container.nav-collapse
-            %ul.nav
-              %li= link_to "Home", root_path
-              %li= link_to "Blog", blog_posts_path
-              %li.dropdown
-                =link_to 'Projects <b class="caret"></b>'.html_safe, "#", "data-toggle" => "dropdown", "class" => "dropdown-toggle", "id" => "advertisement_dropdown", "role" => "button"
-                %ul.dropdown-menu{ :role => :menu, "aria-labelledby" => "advertisement_dropdown" }
-                  /TODO make this list dynamic based upon advertisement start and end dates
-                  %li= link_to "Compression Calculator", compression_calculator_path, :tabindex => "-1"
-                  %li= link_to "copypastr.com", 'http://copypastr.com', :tabindex => "-1"
-              -if signed_in?
+    -if signed_in?
+      .navbar.navbar-fluid-top
+        .navbar-inner
+          .container-fluid
+            %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            %a.brand(href="/") spaghettiprogramming.com
+            .container.nav-collapse
+              %ul.nav
+                %li= link_to "Home", root_path
+                %li= link_to "Blog", blog_posts_path
+                %li.dropdown
+                  =link_to 'Projects <b class="caret"></b>'.html_safe, "#", "data-toggle" => "dropdown", "class" => "dropdown-toggle", "id" => "advertisement_dropdown", "role" => "button"
+                  %ul.dropdown-menu{ :role => :menu, "aria-labelledby" => "advertisement_dropdown" }
+                    /TODO make this list dynamic based upon advertisement start and end dates
+                    %li= link_to "Compression Calculator", compression_calculator_path, :tabindex => "-1"
+                    %li= link_to "copypastr.com", 'http://copypastr.com', :tabindex => "-1"
                 %li= link_to "Unpublished Blog Posts", unpublished_blog_posts_path
                 %li= link_to "New Blog Post", new_blog_post_path
                 %li= link_to "New Category", new_category_path
                 %li= link_to "Sign out", signout_path
-
+    -else
+      .row-fluid
+        .span12
+          %p
     .container-fluid
       .row-fluid
         .span12
@@ -49,19 +52,18 @@
             .well.sidebar-nav
               %ul.nav.nav-list
                 %li.nav-header categories
+                %li= link_to "Blog", blog_posts_path
                 -categories.each do |category|
                   %li
                     =link_to category.name, category_blog_posts_path(category.id)
                     -if signed_in?
                       =link_to :edit, edit_category_path(category)
-          .span8
-            = yield
-          .span2
-            .well.sidebar-nav
               %ul.nav.nav-list
                 %li.nav-header projects
                 %li= link_to "Compression Calculator", compression_calculator_path
                 %li= link_to "copypastr.com", 'http://copypastr.com'
+          .span8
+            = yield
       %p
         %footer
           ="&copy; Spaghetti Programming #{Time.now().strftime("%Y")}".html_safe
