@@ -35,7 +35,7 @@
                   =link_to 'Projects <b class="caret"></b>'.html_safe, "#", "data-toggle" => "dropdown", "class" => "dropdown-toggle", "id" => "advertisement_dropdown", "role" => "button"
                   %ul.dropdown-menu{ :role => :menu, "aria-labelledby" => "advertisement_dropdown" }
                     /TODO make this list dynamic based upon advertisement start and end dates
-                    %li= link_to "Compression Calculator", compression_calculator_path, :tabindex => "-1"
+                    %li= link_to "Compression Calculator", "http://spaghettiprogramming.com/compression_calculator", :tabindex => "-1"
                     %li= link_to "copypastr.com", 'http://copypastr.com', :tabindex => "-1"
                 %li= link_to "Unpublished Blog Posts", unpublished_blog_posts_path
                 %li= link_to "New Blog Post", new_blog_post_path
@@ -63,7 +63,7 @@
                 %li.dropdown
                   =link_to 'Projects <b class="caret"></b>'.html_safe, "#", "data-toggle" => "dropdown", "class" => "dropdown-toggle", "id" => "project_dropdown", "role" => "button"
                   %ul.dropdown-menu{ :role => :menu, "aria-labelledby" => "project_dropdown" }
-                    %li= link_to "Compression Calculator", compression_calculator_path
+                    %li= link_to "Compression Calculator", "http://spaghettiprogramming.com/compression_calculator", :target => '_blank'
                     %li= link_to "copypastr.com", 'http://copypastr.com', :target => '_blank'
           .span8
             = yield
