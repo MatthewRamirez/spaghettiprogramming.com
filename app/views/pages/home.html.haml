@@ -1,7 +1,3 @@
-.hero-unit
-  %h2 spaghettiprogramming.com
-  %p This is a simple blog created mostly for my own purposes.  Any benefit you derive is purely coincidental.
-
 %p
   -@blog_posts.each do |blog_post|
     =render :partial => '/blog_posts/blog_post', :locals => { :blog_post => blog_post }

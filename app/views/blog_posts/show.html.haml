@@ -1,7 +1,6 @@
-.row-fluid
-  .well.well-small
-    %h2= @blog_post.title
-  %h5= "Posted #{@blog_post.created_at.strftime("%Y-%m-%d")}"
+.post.center
+  %h1= @blog_post.title
+  %span.post-date= "#{@blog_post.created_at.strftime("%Y-%m-%d")}"
   -if signed_in?
     %p
       =link_to :edit, edit_blog_post_path(@blog_post)

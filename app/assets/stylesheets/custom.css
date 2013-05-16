@@ -1,27 +1,57 @@
-a:link, a:hover, a:active, a:visited {
-  color: #000000
+.masthead::after {
+  background-color:#EEEEEE;
+  content:'';
+  display:block;
+  height:1px;
+  margin:20px auto;
+  width:100px;
 }
-.well, .well-small, .well-small h2, .well a:link, .well a:hover, .well a:active, .well a:visited {
-  background-color: #000000;
-  color: #ffffff;
+.masthead {
+  margin-bottom:84px;
+}
+.masthead p {
+  color:#999999;
+  padding-bottom:28px;
+  text-align:center;
+}
+.masthead p a {
+  color:#555555;
+}
+.masthead p strong {
+  color:#555555;
+  font-weight:bold;
+  font-size:200%;
+}
+.masthead p strong a {
+  color:#222222;
 }
 
-.nav li a:hover {
-  color: #ffffff;
-  background-color: #000000;
-  background-image: none;
-}
-.dropdown-menu {
-  color: #ffffff;
-  background-color: #000000;
+.center {
+  margin-left:auto;
+  margin-right:auto;
+  float:none;
 }
 
-.dropdown-toggle:hover .caret, .nav .dropdown-toggle .caret, .nav .dropdown-toggle:hover .caret {
-  border-top-color: #ffffff;
-  border-bottom-color: #ffffff;
+.post {
+  margin-bottom:84px;
+  position:relative;
 }
-
-.hero-unit, .hero-unit h2, .hero-unit a:link, .hero-unit a:hover, .hero-unit a:active, .hero-unit a:visited {
-  background-color: #000000;
-  color: #ffffff;
+.post::after {
+  background-color:#EEEEEE;
+  content:'';
+  display:block;
+  height:1px;
+  margin:84px auto 20px;
+  width:100px;
+}
+.post img {
+  max-width:100%;
+}
+.post ul, .post ol {
+  margin-left:30px;
+}
+.post-date {
+  color:#CCCCCC;
+  display:block;
+  margin:-10px 0 10px;
 }
