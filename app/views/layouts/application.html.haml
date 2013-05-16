@@ -14,16 +14,6 @@
 
   .container-fluid
     %header.masthead
-      %p
-      %p
-        =link_to(image_tag("/images/spaghetti1.jpg"), root_path)
-      %p
-        %strong
-          spaghettiprogramming.com
-        %br
-        This is a simple blog created mostly for my own purposes. Any benefit you derive is purely coincidental.
-
-    %body.mastbody
       -if signed_in?
         .navbar.navbar-fluid-top
           .navbar-inner
@@ -38,6 +28,17 @@
                   %li= link_to "New Blog Post", new_blog_post_path
                   %li= link_to "New Category", new_category_path
                   %li= link_to "Sign out", signout_path
+
+      %p
+      %p
+        =link_to(image_tag("/images/spaghetti1.jpg"), root_path)
+      %p
+        %strong
+          spaghettiprogramming.com
+        %br
+        This is a simple blog created mostly for my own purposes. Any benefit you derive is purely coincidental.
+
+    %body.mastbody
       .center.span7
         = yield
       .row-fluid
