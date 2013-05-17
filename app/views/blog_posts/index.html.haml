@@ -1,12 +1,3 @@
--if @category.nil?
-  .well-small
-    %h2= "spaghettiprogramming.com blog"
--else
-  .well-small
-    %h2
-      ="#{@category.name} Posts"
-.row-fluid
-  - if @blog_posts.empty?
-    No posts
-  - else
-    = render @blog_posts
+%p
+  -@blog_posts.each do |blog_post|
+    =render :partial => '/blog_posts/blog_post', :locals => { :blog_post => blog_post }

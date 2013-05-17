@@ -4,13 +4,7 @@ class BlogPostsController < ApplicationController
   before_filter :redirect_to_root_unless_signed_in, :except => [ :index, :show ]
 
   def index
-    @title = "Blog Posts"
-    if params.has_key? :category_id
-      @category = Category.find params[:category_id]
-      @blog_posts = @category.blog_posts.published
-    else
-      @blog_posts = BlogPost.published.limit 5
-    end
+    @blog_posts = BlogPost.published.limit 5
   end
 
   def unpublished_index
