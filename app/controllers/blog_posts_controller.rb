@@ -4,7 +4,7 @@ class BlogPostsController < ApplicationController
   before_filter :redirect_to_root_unless_signed_in, :except => [ :index, :show ]
 
   def index
-    @blog_posts = BlogPost.published.limit 5
+    @blog_posts = BlogPost.published.paginate(:page => params[:page], :per_page => 5)
   end
 
   def unpublished_index

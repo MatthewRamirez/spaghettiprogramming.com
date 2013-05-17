@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
 
   def home
-    @blog_posts = BlogPost.published.limit 5
+    redirect_to blog_posts_path
   end
 end
