@@ -11,6 +11,7 @@ gem 'omniauth-google-oauth2'
 gem 'paperclip', '~> 3.0'
 gem 'redcarpet'
 gem 'validates_email_format_of'
+gem 'will_paginate'
 
 # Gems used only for assets and not required
 # in production environments by default.
