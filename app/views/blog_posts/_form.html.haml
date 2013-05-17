@@ -6,6 +6,19 @@
   .field= f.text_area :body, :rows => 20, :class=>"field span10"
   .field= f.label "Category for this post (recommended)"
   .field= f.collection_select :category_id, @categories, :id, :name, { :include_blank => true }
+  .field= f.label "Upload images"
+  .field= f.file_field(:blog_images_array, :multiple => true)
+  -if @blog_images.count > 0
+    .field= f.label "Existing blog images (Select to delete)"
+    =f.fields_for :blog_images do |blog_images_fields|
+      -if !blog_images_fields.object.new_record?
+        %p
+          =blog_images_fields.object.image.url
+        %p
+          =link_to image_tag(blog_images_fields.object.image.url(:thumb)), blog_images_fields.object.image.url
+          =blog_images_fields.check_box :_destroy
+      -else
+        %p
   .field= f.label "Publish this post"
   .field= f.check_box :published
   .actions= f.submit :submit

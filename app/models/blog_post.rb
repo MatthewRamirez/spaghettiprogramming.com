@@ -2,10 +2,19 @@ class BlogPost < ActiveRecord::Base
   default_scope order('created_at desc')
   belongs_to :user
   belongs_to :category
+  has_many :blog_images
 
-  attr_accessible :title, :body, :user_id, :category_id, :published
+  accepts_nested_attributes_for :blog_images, :allow_destroy => true
+  attr_accessible :title, :body, :user_id, :category_id, :published,
+    :blog_images_attributes, :blog_images_array
 
   before_save :render_content
+
+  def blog_images_array=(array)
+    array.each do |file|
+      self.blog_images.build(:image => file)
+    end
+  end
 
   def self.published
     where :published => true

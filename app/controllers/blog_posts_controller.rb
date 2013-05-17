@@ -32,6 +32,7 @@ class BlogPostsController < ApplicationController
   def new
     @blog_post = BlogPost.new
     @categories = Category.all
+    @blog_images = []
   end
 
   def create
@@ -44,6 +45,7 @@ class BlogPostsController < ApplicationController
   def edit
     @blog_post = BlogPost.find params[:id]
     @categories = Category.all
+    @blog_images = @blog_post.blog_images
   end
 
   def update
