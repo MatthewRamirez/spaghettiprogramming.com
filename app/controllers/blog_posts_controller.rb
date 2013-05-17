@@ -12,9 +12,9 @@ class BlogPostsController < ApplicationController
     @title = "Unpublished Blog Posts"
     if params.has_key? :category_id
       @category = Category.find params[:category_id]
-      @blog_posts = @category.blog_posts.unpublished
+      @blog_posts = @category.blog_posts.unpublished.paginate(:page => params[:page], :per_page => 5)
     else
-      @blog_posts = BlogPost.unpublished
+      @blog_posts = BlogPost.unpublished.paginate(:page => params[:page], :per_page => 5)
       render 'blog_posts/index'
     end
   end
