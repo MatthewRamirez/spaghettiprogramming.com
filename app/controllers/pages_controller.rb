@@ -1,6 +1,7 @@
 class PagesController < ApplicationController
 
   def home
-    redirect_to blog_posts_path
+    @blog_posts = BlogPost.published.paginate(:page => params[:page], :per_page => 5)
+    render 'blog_posts/index'
   end
 end
