@@ -2,4 +2,3 @@
   -@blog_posts.each do |blog_post|
     =render :partial => '/blog_posts/blog_post', :locals => { :blog_post => blog_post }
   =will_paginate(@blog_posts, { :page_links => false, :previous_label => :Newer, :next_label => :Older, :container => true, :link_separator => ' | ' })
-=link_to('','https://plus.google.com/115745403673562093230?rel=author')
