@@ -1,8 +1,12 @@
-.post.center
-  %h1= @blog_post.title
-  %span.post-date= "#{@blog_post.created_at.strftime("%Y-%m-%d")}"
-  -if signed_in?
-    %p
-      =link_to :edit, edit_blog_post_path(@blog_post)
-      =link_to :delete, blog_post_path(@blog_post), :method => :delete
-  %p= @blog_post.rendered_content.html_safe
+.post.center(itemprop="blogPost")
+  %div(itemscope itemtype='http://schema.org/BlogPosting')
+    %span(itemprop="name")
+      %h1= @blog_post.title
+    %span.post-date(itemprop='datePublished')
+      ="#{@blog_post.created_at.strftime("%Y-%m-%d")}"
+    -if signed_in?
+      %p
+        =link_to :edit, edit_blog_post_path(@blog_post)
+        =link_to :delete, blog_post_path(@blog_post), :method => :delete
+    %div(itemprop="articleBody")
+      =@blog_post.rendered_content.html_safe
