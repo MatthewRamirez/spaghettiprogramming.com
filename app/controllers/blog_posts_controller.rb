@@ -1,7 +1,7 @@
 class BlogPostsController < ApplicationController
   include ApplicationHelper
 
-  before_filter :redirect_to_root_unless_signed_in, :except => [ :index, :show ]
+  before_filter :redirect_to_root_unless_signed_in, :except => [ :index, :slug ]
 
   def index
     redirect_to root_path
