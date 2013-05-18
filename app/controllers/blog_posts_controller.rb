@@ -23,6 +23,11 @@ class BlogPostsController < ApplicationController
     @blog_post = signed_in? ? BlogPost.find(params[:id]) : BlogPost.published.find(params[:id])
   end
 
+  def slug
+    @blog_post = signed_in? ? BlogPost.find_by_slug(params[:slug]) : BlogPost.published.find_by_slug(params[:slug])
+    render 'blog_posts/show'
+  end
+
   def new
     @blog_post = BlogPost.new
     @categories = Category.all

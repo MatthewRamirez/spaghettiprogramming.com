@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130517000937) do
+ActiveRecord::Schema.define(:version => 20130518170717) do
 
   create_table "blog_images", :force => true do |t|
     t.integer  "blog_post_id"
@@ -34,10 +34,12 @@ ActiveRecord::Schema.define(:version => 20130517000937) do
     t.datetime "updated_at",                         :null => false
     t.text     "rendered_content"
     t.boolean  "published",        :default => true, :null => false
+    t.text     "slug"
   end
 
   add_index "blog_posts", ["category_id"], :name => "index_blog_posts_on_category_id"
   add_index "blog_posts", ["published"], :name => "index_blog_posts_on_published"
+  add_index "blog_posts", ["slug"], :name => "index_blog_posts_on_slug"
 
   create_table "categories", :force => true do |t|
     t.text     "name",       :null => false

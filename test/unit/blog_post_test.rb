@@ -19,5 +19,6 @@ end
 #  updated_at       :datetime        not null
 #  rendered_content :text
 #  published        :boolean         default(TRUE), not null
+#  slug             :text
 #
 

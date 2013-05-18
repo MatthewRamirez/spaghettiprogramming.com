@@ -1,5 +1,5 @@
 .post.center
-  %h1=link_to blog_post.title, blog_post_path(blog_post.id)
+  %h1=link_to blog_post.title, blog_slug_path(blog_post.slug)
   %span.post-date= "#{blog_post.created_at.strftime("%Y-%m-%d")}"
   -if signed_in?
     %p

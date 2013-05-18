@@ -3,6 +3,7 @@ SpaghettiprogrammingCom::Application.routes.draw do
   resources :users, :only => [ :new, :create ]
   resources :advertisements, :only => [ :show, :destroy ]
   resources :blog_posts
+  get '/blog/:slug' => 'blog_posts#slug', :as => 'blog_slug'
   get '/unpublished' => 'blog_posts#unpublished_index', :as => 'unpublished_blog_posts'
 
   resources :categories do

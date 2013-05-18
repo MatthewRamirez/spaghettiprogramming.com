@@ -6,14 +6,22 @@ class BlogPost < ActiveRecord::Base
 
   accepts_nested_attributes_for :blog_images, :allow_destroy => true
   attr_accessible :title, :body, :user_id, :category_id, :published,
-    :blog_images_attributes, :blog_images_array
+    :blog_images_attributes, :blog_images_array, :slug
 
+  before_validation :slugify
   before_save :render_content
+
+  validates_uniqueness_of :slug
 
   def blog_images_array=(array)
     array.each do |file|
       self.blog_images.build(:image => file)
     end
+  end
+
+  def slugify
+    mslug = self.slug.blank? ? self.title : self.slug
+    self.slug = mslug.gsub(/(#|\$| |-|\/|\.|\(|\)|>|\?)/,'_')
   end
 
   def self.published
@@ -47,5 +55,6 @@ end
 #  updated_at       :datetime        not null
 #  rendered_content :text
 #  published        :boolean         default(TRUE), not null
+#  slug             :text
 #
 
