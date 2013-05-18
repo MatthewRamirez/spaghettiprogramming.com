@@ -1,7 +1,7 @@
 class BlogPostsController < ApplicationController
   include ApplicationHelper
 
-  before_filter :redirect_to_root_unless_signed_in, :except => [ :index, :slug ]
+  before_filter :redirect_to_root_unless_signed_in, :except => [ :index, :slug, :show ]
 
   def index
     redirect_to root_path
@@ -21,6 +21,7 @@ class BlogPostsController < ApplicationController
 
   def show
     @blog_post = signed_in? ? BlogPost.find(params[:id]) : BlogPost.published.find(params[:id])
+    redirect_to blog_slug_path(@blog_post.slug)
   end
 
   def slug
