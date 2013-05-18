@@ -4,7 +4,7 @@ class BlogImage < ActiveRecord::Base
   default_scope order('image_updated_at desc')
   has_attached_file :image, {
     :whiny => true,
-    :url => "/images/:class/:style/:filename",
+    :url => "/system/:class/:style/:filename",
     :hash_data => nil,
     :styles => { :large => "600x600", :medium => "300x300>", :thumb => "100x100>" }
   }
