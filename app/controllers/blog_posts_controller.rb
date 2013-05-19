@@ -36,10 +36,10 @@ class BlogPostsController < ApplicationController
   end
 
   def create
-    post = current_user.blog_posts.build params[:blog_post]
-    if post.save
-      redirect_to root_path
-    end
+    @categories = Category.all
+    @blog_images = []
+    @blog_post = current_user.blog_posts.build params[:blog_post]
+    @blog_post.save ? redirect_to(root_path) : render(:new)
   end
 
   def edit
