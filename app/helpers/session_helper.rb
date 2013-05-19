@@ -11,12 +11,7 @@ module SessionHelper
   end
 
   def current_user
-    if @current_user
-      return @current_user
-    end
-    if session.has_key? :user_id
-      return User.find session[:user_id]
-    end
+    return session.has_key?(:user_id) ? current_user=(User.find(session[:user_id])) : nil
   end
 
   def signed_in?
