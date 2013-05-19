@@ -2,6 +2,9 @@ require 'spec_helper'
 
 describe BlogPostsController do
 
+  User.destroy_all
+  user = FactoryGirl.create(:user)
+
   describe "GET #index" do
     it "should redirect to root_path" do
       get :new
@@ -57,8 +60,17 @@ describe BlogPostsController do
   describe "GET #new" do
     #need to sign in for this and idk how to do that atm
     context "when signed in" do
-      it "assigns a new blog_post to @blog_post"
-      it "renders the :new view"
+
+      it "assigns a new blog_post to @blog_post" do
+        session[:user_id] = user.id
+        get :new
+        assigns(:blog_post).should be_an_instance_of(BlogPost)
+      end
+      it "renders the :new view" do
+        session[:user_id] = user.id
+        get :new
+        response.should render_template(:new)
+      end
     end
     context "when signed out" do
       it "should redirect to root_path" do
@@ -71,8 +83,6 @@ describe BlogPostsController do
 
   describe "POST #create" do
     context "when signed in" do
-      User.destroy_all
-      user = FactoryGirl.create(:user)
 
       context "with invalid attributes" do
         it "does not save the new blog_post" do
