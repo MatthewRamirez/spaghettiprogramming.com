@@ -27,6 +27,11 @@ group :assets do
   gem 'haml-bootstrap-rails'
 end
 
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+end
+
 group :development do
   gem 'annotate',
     :git => 'git://github.com/jeremyolliver/annotate_models.git',
