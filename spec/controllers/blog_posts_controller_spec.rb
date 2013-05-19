@@ -71,13 +71,37 @@ describe BlogPostsController do
 
   describe "POST #create" do
     context "when signed in" do
+      User.destroy_all
+      user = FactoryGirl.create(:user)
+
       context "with invalid attributes" do
-        it "does not save the new blog_post"
-        it "renders the :new view"
+        it "does not save the new blog_post" do
+          session[:user_id] = user.id
+          expect{
+            post :create, blog_post: FactoryGirl.attributes_for(:invalid_blog_post)
+          }.to_not change(BlogPost, :count)
+        end
+
+        it "renders the :new view" do
+          session[:user_id] = user.id
+          post :create, blog_post: FactoryGirl.attributes_for(:invalid_blog_post)
+          response.should render_template :new
+        end
       end
+
       context "with valid attributes" do
-        it "saves the new blog_post"
-        it "redirects to the show page"
+        it "saves the new blog_post" do
+          session[:user_id] = user.id
+          expect{
+            post :create, blog_post: FactoryGirl.attributes_for(:blog_post)
+          }.to change(BlogPost, :count).by(1)
+        end
+
+        it "redirects to the root path" do
+          session[:user_id] = user.id
+          post :create, blog_post: FactoryGirl.attributes_for(:blog_post)
+          response.should redirect_to root_path
+        end
       end
     end
     context "when signed out" do

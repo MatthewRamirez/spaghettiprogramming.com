@@ -5,4 +5,8 @@ FactoryGirl.define do
     f.slug "Test slug"
     f.published true
   end
+
+  factory :invalid_blog_post, parent: :blog_post do |f|
+    f.title nil
+  end
 end
