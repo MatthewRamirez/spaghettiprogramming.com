@@ -26,7 +26,7 @@ class BlogPostsController < ApplicationController
 
   def slug
     @blog_post = signed_in? ? BlogPost.find_by_slug(params[:slug]) : BlogPost.published.find_by_slug(params[:slug])
-    render 'blog_posts/show'
+    @blog_post.nil? ? redirect_to(root_path) : render('blog_posts/show')
   end
 
   def new
