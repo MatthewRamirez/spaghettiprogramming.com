@@ -3,12 +3,6 @@ FactoryGirl.define do
     f.title "Test tile"
     f.body "Test body"
     f.slug "Test slug"
+    f.published true
   end
-  factory :private_blog_post do |f|
-    f.title "Test tile"
-    f.body "Test body"
-    f.slug "Test slug"
-    f.public false
-  end
-
 end
