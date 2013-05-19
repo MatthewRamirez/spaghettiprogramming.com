@@ -1,7 +1,0 @@
-= form_for @blog_post do |f|
-  = render 'shared/error_messages', :object => f.object
-  .field= f.label :title
-  .field= f.text_field :title
-  .field= f.label :content
-  .field= f.text_area :body, :cols => 95, :rows => 20
-  .actions= f.submit :submit
