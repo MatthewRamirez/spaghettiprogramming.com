@@ -38,7 +38,7 @@ class BlogPostsController < ApplicationController
   def create
     post = current_user.blog_posts.build params[:blog_post]
     if post.save
-      redirect_to blog_posts_path
+      redirect_to root_path
     end
   end
 
