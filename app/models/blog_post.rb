@@ -11,7 +11,8 @@ class BlogPost < ActiveRecord::Base
   before_validation :slugify
   before_save :render_content
 
-  validates_uniqueness_of :slug
+  validates_uniqueness_of :slug, :title
+  validates_presence_of :slug, :title, :body
 
   def blog_images_array=(array)
     array.each do |file|
