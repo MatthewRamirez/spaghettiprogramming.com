@@ -14,17 +14,27 @@ describe BlogPostsController do
   end
 
   describe "GET #show" do
-    it "assigns the requested blog_post to @blog_post" do
-      blog_post = FactoryGirl.create(:blog_post)
-      get :show, :id => blog_post
-      assigns(:blog_post).should eq(blog_post)
-    end
+    context "when signed out and post is published" do
+      it "assigns the requested blog_post to @blog_post" do
+        blog_post = FactoryGirl.create(:blog_post)
+        get :show, :id => blog_post
+        assigns(:blog_post).should eq(blog_post)
+      end
 
-    it "redirects to blog_slug_path" do
-      blog_post = FactoryGirl.create(:blog_post)
-      get :show, id: blog_post
-      response.code.should == "302"
-      response.should redirect_to(blog_slug_path(blog_post.slug))
+      it "redirects to blog_slug_path" do
+        blog_post = FactoryGirl.create(:blog_post)
+        get :show, id: blog_post
+        response.code.should == "302"
+        response.should redirect_to(blog_slug_path(blog_post.slug))
+      end
+    end
+    context "when signed out and post is unpublished" do
+      it "should redirect to root_path" do
+        blog_post = FactoryGirl.create(:unpublished_blog_post)
+        get :show, id: blog_post.id
+        response.code.should == "302"
+        response.should redirect_to(root_path)
+      end
     end
   end
 
@@ -54,7 +64,6 @@ describe BlogPostsController do
         response.should redirect_to(root_path)
       end
     end
-
   end
 
   describe "GET #new" do
@@ -122,6 +131,4 @@ describe BlogPostsController do
       end
     end
   end
-
-
 end
