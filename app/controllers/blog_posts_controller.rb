@@ -20,8 +20,8 @@ class BlogPostsController < ApplicationController
   end
 
   def show
-    @blog_post = signed_in? ? BlogPost.find(params[:id]) : BlogPost.published.find(params[:id])
-    redirect_to blog_slug_path(@blog_post.slug)
+    @blog_post = signed_in? ? BlogPost.find(params[:id]) : BlogPost.published.find_by_id(params[:id])
+    @blog_post.nil? ? redirect_to(root_path) : redirect_to(blog_slug_path(@blog_post.slug))
   end
 
   def slug
