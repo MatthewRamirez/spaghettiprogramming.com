@@ -3,16 +3,25 @@ class BlogPost < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
   has_many :blog_images
+  has_many :blog_attachments
 
   accepts_nested_attributes_for :blog_images, :allow_destroy => true
+  accepts_nested_attributes_for :blog_attachments, :allow_destroy => true
   attr_accessible :title, :body, :user_id, :category_id, :published,
-    :blog_images_attributes, :blog_images_array, :slug
+    :blog_images_attributes, :blog_images_array, :slug,
+    :blog_attachments_attributes, :blog_attachments_array
 
   before_validation :slugify
   before_save :render_content
 
   validates_uniqueness_of :slug, :title
   validates_presence_of :slug, :title, :body
+
+  def blog_attachments_array=(array)
+    array.each do |attachment|
+      self.blog_attachments.build(:file => attachment)
+    end
+  end
 
   def blog_images_array=(array)
     array.each do |file|

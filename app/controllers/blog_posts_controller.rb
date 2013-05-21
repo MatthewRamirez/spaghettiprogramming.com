@@ -33,11 +33,13 @@ class BlogPostsController < ApplicationController
     @blog_post = BlogPost.new
     @categories = Category.all
     @blog_images = []
+    @blog_attachments = []
   end
 
   def create
     @categories = Category.all
     @blog_images = []
+    @blog_attachments = []
     @blog_post = current_user.blog_posts.build params[:blog_post]
     @blog_post.save ? redirect_to(root_path) : render(:new)
   end
@@ -46,15 +48,12 @@ class BlogPostsController < ApplicationController
     @blog_post = BlogPost.find params[:id]
     @categories = Category.all
     @blog_images = @blog_post.blog_images
+    @blog_attachments = @blog_post.blog_attachments
   end
 
   def update
     @blog_post = BlogPost.find params[:id]
-    if @blog_post.update_attributes params[:blog_post]
-      redirect_to @blog_post
-    else
-      render 'edit'
-    end
+    @blog_post.update_attributes(params[:blog_post]) ? redirect_to(@blog_post) : render('edit')
   end
 
   def destroy

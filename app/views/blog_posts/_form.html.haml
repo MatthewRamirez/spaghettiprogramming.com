@@ -21,6 +21,26 @@
           =blog_images_fields.check_box :_destroy
       -else
         %p
+  .field= f.label "Upload files"
+  .field= f.file_field(:blog_attachments_array, :multiple => true)
+  -if @blog_attachments.count > 0
+    %table.table.table-bordered.table-striped
+      %thead
+        %tr
+          %th= 'File'
+          %th= 'Size'
+          %th= 'Type'
+          %th= 'Delete?'
+      =f.fields_for :blog_attachments do |blog_attachments_fields|
+        -if !blog_attachments_fields.object.new_record?
+          %tr
+            %td= link_to(blog_attachments_fields.object.file.url, blog_attachments_fields.object.file.url)
+            %td= blog_attachments_fields.object.file.size
+            %td= blog_attachments_fields.object.file.content_type
+            %td= blog_attachments_fields.check_box :_destroy
+        -else
+          %p
+
   .field= f.label "Publish this post"
   .field= f.check_box :published
   .actions= f.submit :submit
