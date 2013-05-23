@@ -26,16 +26,8 @@ module ApplicationHelper
   end
 
   def title
-    base_title = "Customer Order App"
-    if @title.nil?
-      base_title
-    else
-      "#{base_title} | #{@title}"
-    end
-  end
-
-  def logo
-    image_tag("weborderlogo.png", :alt => "Vision Web Order App", :class => "round")
+    base_title = "spaghettiprogramming.com"
+    return @title.nil? ? base_title : "#{base_title} | #{@title}"
   end
 
   def new_random_password(string)
