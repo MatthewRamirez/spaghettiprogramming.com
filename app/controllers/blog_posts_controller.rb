@@ -31,6 +31,7 @@ class BlogPostsController < ApplicationController
   end
 
   def new
+    @title = 'New Blog Post'
     @blog_post = BlogPost.new
     @categories = Category.all
     @blog_images = []
@@ -46,6 +47,7 @@ class BlogPostsController < ApplicationController
   end
 
   def edit
+    @title = 'Edit Blog Post'
     @blog_post = BlogPost.find params[:id]
     @categories = Category.all
     @blog_images = @blog_post.blog_images
