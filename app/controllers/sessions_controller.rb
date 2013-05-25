@@ -1,10 +1,7 @@
 class SessionsController < ApplicationController
   def new
     @title = "Sign in"
-    if signed_in?
-      redirect_to root_path, :notice => "Signed in already!" and return
-    end
-    redirect_to '/auth/google_oauth2' and return
+    signed_in? ? redirect_to(root_path, :notice => "Signed in already!") : redirect_to('/auth/google_oauth2')
   end
 
   def create
@@ -12,14 +9,10 @@ class SessionsController < ApplicationController
     session[:auth] = request.env["omniauth.auth"]
     user_params = {
       :uid => session[:auth]['extra']['raw_info']['id'],
-      :username => session[:auth]['extra']['raw_info']['name'],
       :nick => session[:auth]['extra']['raw_info']['name'],
       :email_address => session[:auth]['extra']['raw_info']['email'],
       :identifier_url => session[:auth]['extra']['raw_info']['link'],
-      :token => session[:auth]['credentials']['token'],
-      :secret => session[:auth]['credentials']['secret'],
-      :provider => session[:auth]['provider'],
-      :type => 'Administrator'
+      :provider => session[:auth]['provider']
     }
     redirect_to root_path and return unless APP_CONFIG["VALID_ADMINISTRATOR_EMAILS"].has_key? user_params[:email_address]
     user = User.find_by_uid(session[:auth]['extra']['raw_info']['id']) || User.create_from_auth(user_params)
