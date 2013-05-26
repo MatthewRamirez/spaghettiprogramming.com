@@ -8,6 +8,8 @@ class BlogImage < ActiveRecord::Base
     :hash_data => nil,
     :styles => { :large => "600x600", :medium => "300x300>", :thumb => "100x100>" }
   }
+  validates_uniqueness_of :image_file_name
+  validates_presence_of :image_file_name
 end
 
 # == Schema Information

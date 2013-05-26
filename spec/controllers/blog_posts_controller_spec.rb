@@ -116,6 +116,13 @@ describe BlogPostsController do
           }.to change(BlogPost, :count).by(1)
         end
 
+        it "creates a blog attachment" do
+          session[:user_id] = user.id
+          expect{
+            post :create, blog_post: FactoryGirl.attributes_for(:blog_post)
+          }.to change(BlogAttachment, :count).by(1)
+        end
+
         it "redirects to the root path" do
           session[:user_id] = user.id
           post :create, blog_post: FactoryGirl.attributes_for(:blog_post)

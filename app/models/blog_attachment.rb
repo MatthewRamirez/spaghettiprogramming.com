@@ -8,7 +8,8 @@ class BlogAttachment < ActiveRecord::Base
     :hash_data => nil,
     :styles => { }
   }
-
+  validates_uniqueness_of :file_file_name
+  validates_presence_of :file_file_name
 end
 
 # == Schema Information
