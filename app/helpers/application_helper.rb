@@ -34,4 +34,8 @@ module ApplicationHelper
     Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{string}--")[0,12]
   end
 
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
+
 end
