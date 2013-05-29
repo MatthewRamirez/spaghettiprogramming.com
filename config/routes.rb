@@ -16,4 +16,11 @@ SpaghettiprogrammingCom::Application.routes.draw do
   get '/auth/:provider/callback' => 'sessions#create'
   root :to => 'blog_posts#index'
 
+  unless Rails.env == 'development'
+    get '*not_found', :to => 'errors#error_404'
+    post '*not_found', :to => 'errors#error_404'
+    put '*not_found', :to => 'errors#error_404'
+    delete '*not_found', :to => 'errors#error_404'
+  end
+
 end
