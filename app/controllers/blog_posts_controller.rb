@@ -21,13 +21,13 @@ class BlogPostsController < ApplicationController
 
   def show
     @blog_post = signed_in? ? BlogPost.find(params[:id]) : BlogPost.published.find_by_id(params[:id])
-    @blog_post.nil? ? redirect_to(root_path) : redirect_to(blog_slug_path(@blog_post.slug))
+    @blog_post.nil? ? not_found : redirect_to(blog_slug_path(@blog_post.slug))
   end
 
   def slug
     @blog_post = signed_in? ? BlogPost.find_by_slug(params[:slug]) : BlogPost.published.find_by_slug(params[:slug])
-    @blog_post.nil? ? @title = nil : @title = @blog_post.title
-    @blog_post.nil? ? redirect_to(root_path) : render('blog_posts/show')
+    @blog_post.nil? ? not_found : @title = @blog_post.title
+    render 'blog_posts/show'
   end
 
   def new

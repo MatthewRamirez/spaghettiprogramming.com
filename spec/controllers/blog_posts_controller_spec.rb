@@ -14,54 +14,85 @@ describe BlogPostsController do
   end
 
   describe "GET #show" do
-    context "when signed out and post is published" do
-      it "assigns the requested blog_post to @blog_post" do
-        blog_post = FactoryGirl.create(:blog_post)
-        get :show, :id => blog_post
-        assigns(:blog_post).should eq(blog_post)
+    context "when signed out" do
+      context "when post is published" do
+
+        it "assigns the requested blog_post to @blog_post" do
+          blog_post = FactoryGirl.create(:blog_post)
+          get :show, :id => blog_post
+          assigns(:blog_post).should eq(blog_post)
+        end
+
+        it "redirects to blog_slug_path" do
+          blog_post = FactoryGirl.create(:blog_post)
+          get :show, id: blog_post
+          response.code.should == "302"
+          response.should redirect_to(blog_slug_path(blog_post.slug))
+        end
+
       end
 
-      it "redirects to blog_slug_path" do
-        blog_post = FactoryGirl.create(:blog_post)
-        get :show, id: blog_post
-        response.code.should == "302"
-        response.should redirect_to(blog_slug_path(blog_post.slug))
-      end
-    end
-    context "when signed out and post is unpublished" do
-      it "should redirect to root_path" do
-        blog_post = FactoryGirl.create(:unpublished_blog_post)
-        get :show, id: blog_post.id
-        response.code.should == "302"
-        response.should redirect_to(root_path)
+      context "when post is unpublished" do
+
+        it "assigns nil to blog_post" do
+          blog_post = FactoryGirl.create(:blog_post, :published => false)
+          get :slug, :slug => blog_post.slug
+          assigns(:blog_post).should eq(nil)
+        end
+
+        it "should give 404" do
+          blog_post = FactoryGirl.create(:unpublished_blog_post)
+          get :show, id: blog_post.id
+          response.code.should == "404"
+        end
+
+        it "should render the 404 page" do
+          blog_post = FactoryGirl.create(:unpublished_blog_post)
+          get :show, id: blog_post.id
+          response.should render_template("error_404")
+        end
+
       end
     end
   end
 
   describe "GET #slug" do
     context "when signed out" do
-      it "assigns the requested blog_post to @blog_post" do
-        blog_post = FactoryGirl.create(:blog_post)
-        get :slug, :slug => blog_post.slug
-        assigns(:blog_post).should eq(blog_post)
+      context "when post is published" do
+
+        it "assigns the requested blog_post to @blog_post" do
+          blog_post = FactoryGirl.create(:blog_post)
+          get :slug, :slug => blog_post.slug
+          assigns(:blog_post).should eq(blog_post)
+        end
+
+        it "renders the #show view" do
+          get :slug, slug: FactoryGirl.create(:blog_post).slug
+          response.should render_template(:show)
+        end
+
       end
 
-      it "renders the #show view" do
-        get :slug, slug: FactoryGirl.create(:blog_post).slug
-        response.should render_template(:show)
-      end
+      context "when post is unpublished" do
 
-      it "assigns nil if blog_post is unpublished" do
-        blog_post = FactoryGirl.create(:blog_post, :published => false)
-        get :slug, :slug => blog_post.slug
-        assigns(:blog_post).should eq(nil)
-      end
+        it "assigns nil to blog_post" do
+          blog_post = FactoryGirl.create(:blog_post, :published => false)
+          get :slug, :slug => blog_post.slug
+          assigns(:blog_post).should eq(nil)
+        end
 
-      it "redirects to root_path if blog_post is unpublished" do
-        blog_post = FactoryGirl.create(:blog_post, :published => false)
-        get :slug, :slug => blog_post.slug
-        response.code.should == "302"
-        response.should redirect_to(root_path)
+        it "gives 404" do
+          blog_post = FactoryGirl.create(:blog_post, :published => false)
+          get :slug, :slug => blog_post.slug
+          response.code.should == "404"
+        end
+
+        it "renders the 404 page" do
+          blog_post = FactoryGirl.create(:blog_post, :published => false)
+          get :slug, :slug => blog_post.slug
+          response.should render_template("error_404")
+        end
+
       end
     end
   end
