@@ -55,7 +55,15 @@
   display:block;
   margin:-10px 0 10px;
 }
-
+.post-date a:link {
+  color:#CCCCCC;
+}
+.post-date a:visited {
+  color:#CCCCCC;
+}
+.post-date a:hover {
+  color:#7A7A7A;
+}
 .pagination {
   color:#CCCCCC;
   margin-bottom:80px;

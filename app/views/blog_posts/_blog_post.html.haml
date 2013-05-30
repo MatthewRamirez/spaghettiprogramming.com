@@ -2,8 +2,14 @@
   %div(itemscope itemtype='http://schema.org/BlogPosting')
     %span(itemprop="name")
       %h1=link_to(blog_post.title, blog_slug_path(blog_post.slug), { :itemprop => "url", :title => blog_post.title })
-    %span.post-date(itemprop='datePublished')
-      ="#{blog_post.created_at.strftime("%Y-%m-%d")}"
+    %span.post-date
+      %span(itemscope itemtype="http://schema.org/Person")
+        =link_to "#{blog_post.user.identifier_url}?rel=author" do
+          %span(itemprop="name")
+            =blog_post.user.nick
+      on 
+      %span(itemprop='datePublished')
+        ="#{blog_post.created_at.strftime("%Y-%m-%d")}"
     -if signed_in?
       %p
         =link_to :edit, edit_blog_post_path(blog_post.id)
