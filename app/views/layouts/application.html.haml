@@ -13,41 +13,39 @@
     %link(href="/images/favicon.ico" rel="shortcut icon")
 
   .container-fluid
-    %div(itemscope itemtype="http://schema.org/Blog")
-      %header.masthead
-        -if signed_in?
-          .navbar.navbar-fluid-top
-            .navbar-inner
-              .container-fluid
-                %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
-                  %span.icon-bar
-                  %span.icon-bar
-                  %span.icon-bar
-                .container.nav-collapse
-                  %ul.nav
-                    %li= link_to "Unpublished Blog Posts", unpublished_blog_posts_path
-                    %li= link_to "New Blog Post", new_blog_post_path
-                    %li= link_to "New Category", new_category_path
-                    %li= link_to "Sign out", signout_path
+    %header.masthead
+      -if signed_in?
+        .navbar.navbar-fluid-top
+          .navbar-inner
+            .container-fluid
+              %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
+                %span.icon-bar
+                %span.icon-bar
+                %span.icon-bar
+              .container.nav-collapse
+                %ul.nav
+                  %li= link_to "Unpublished Blog Posts", unpublished_blog_posts_path
+                  %li= link_to "New Blog Post", new_blog_post_path
+                  %li= link_to "New Category", new_category_path
+                  %li= link_to "Sign out", signout_path
+      %br
+      %p
+        =link_to(image_tag("/images/spaghetti1.jpg", { :alt => "spaghettiprogramming.com", :title => "spaghettiprogramming.com" }), root_path, { :itemprop => "url" })
+      %p
+        %strong
+          %span(itemprop="name")
+            spaghettiprogramming.com
         %br
-        %p
-          =link_to(image_tag("/images/spaghetti1.jpg", { :alt => "spaghettiprogramming.com", :title => "spaghettiprogramming.com" }), root_path, { :itemprop => "url" })
-        %p
-          %strong
-            %span(itemprop="name")
-              spaghettiprogramming.com
-          %br
-          I read on the internet that you could learn how to program by writing your own blog application.
-          =link_to('So I did.', 'https://github.com/MatthewRamirez/spaghettiprogramming.com', {:title => 'spaghettiprogramming.com', :target => '_new'})
+        I read on the internet that you could learn how to program by writing your own blog application.
+        =link_to('So I did.', 'https://github.com/MatthewRamirez/spaghettiprogramming.com', {:title => 'spaghettiprogramming.com', :target => '_new'})
 
-      %body.mastbody
-        .center.span7
-          = yield
-        .row-fluid
-          %footer
-            =link_to('','https://plus.google.com/115745403673562093230?rel=author')
-            ="&copy; Spaghetti Programming #{Time.now().strftime("%Y")}".html_safe
-        %br
+    %body.mastbody
+      .center.span7
+        = yield
+      .row-fluid
+        %footer
+          ="&copy; Spaghetti Programming #{Time.now().strftime("%Y")}".html_safe
+      %br
     /
       Javascripts
       \==================================================
