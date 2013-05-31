@@ -57,6 +57,7 @@ Certain config files are not in this git repository and you must make your own:
 #### application_config.yml
 
     development:
+      GA_ACCOUNT: google analytics property account number
       GOOGLE_KEY: development_something.apps.googleusercontent.com
       GOOGLE_SECRET: development_secret_from_google
       SECRET_TOKEN: development_secret_token_for_session
@@ -65,6 +66,7 @@ Certain config files are not in this git repository and you must make your own:
         admin@example.com: 1
     
     test:
+      GA_ACCOUNT: google analytics property account number
       GOOGLE_KEY: test_something.apps.googleusercontent.com
       GOOGLE_SECRET: test_secret_from_google
       SECRET_TOKEN: test_secret_token_for_session
@@ -73,6 +75,7 @@ Certain config files are not in this git repository and you must make your own:
         admin@example.com: 1
     
     production:
+      GA_ACCOUNT: google analytics property account number
       GOOGLE_KEY: production_something.apps.googleusercontent.com
       GOOGLE_SECRET: production_secret_from_google
       SECRET_TOKEN: production_secret_token_for_session
