@@ -32,7 +32,7 @@ class BlogPostsController < ApplicationController
 
   def new
     @title = 'New Blog Post'
-    @blog_post = BlogPost.new
+    @blog_post = BlogPost.new({ :published => false })
     @categories = Category.all
     @blog_images = []
     @blog_attachments = []
