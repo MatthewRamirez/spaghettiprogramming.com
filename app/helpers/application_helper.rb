@@ -27,7 +27,7 @@ module ApplicationHelper
 
   def title
     base_title = "spaghettiprogramming.com"
-    return @title.nil? ? base_title : "#{base_title} | #{@title}"
+    return @title.nil? ? base_title : "#{@title} | #{base_title}"
   end
 
   def new_random_password(string)
