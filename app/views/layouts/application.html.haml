@@ -46,7 +46,8 @@
         %footer
           ="&copy; Spaghetti Programming #{Time.now().strftime("%Y")}".html_safe
       %br
-    =render :partial => '/layouts/ga'
+    -if !signed_in?
+      =render :partial => '/layouts/ga'
     /
       Javascripts
       \==================================================
