@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130521225912) do
+ActiveRecord::Schema.define(:version => 20130726191238) do
 
   create_table "blog_attachments", :force => true do |t|
     t.integer  "blog_post_id"
@@ -72,15 +72,14 @@ ActiveRecord::Schema.define(:version => 20130521225912) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
-    t.text     "email_address",  :null => false
+    t.text     "email",           :null => false
     t.text     "identifier_url"
     t.text     "nick"
-    t.text     "uid"
-    t.text     "provider"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.text     "password_digest"
   end
 
-  add_index "users", ["email_address"], :name => "index_users_on_email_address", :unique => true
+  add_index "users", ["email"], :name => "index_users_on_email_address", :unique => true
 
 end

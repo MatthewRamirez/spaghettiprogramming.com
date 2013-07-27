@@ -1,30 +1,27 @@
 FactoryGirl.define do
-  valid_oauth_hash = {
-      'extra'=>{
-        'raw_info'=>{
-          'id'=>'123456',
-          'name'=>'test_name',
-          'email'=>'test_admin@example.com',
-          'link'=>'http://www.google.com',
-          'provider'=>'google' }}}
-  invalid_oauth_hash = {
-      'extra'=>{
-        'raw_info'=>{
-          'id'=>'123456',
-          'name'=>'test_name',
-          'email'=>'invalid@example.com',
-          'link'=>'http://www.google.com',
-          'provider'=>'google' }}}
 
   factory :user do |f|
-    f.email_address "test@email.com"
+    f.email "user@email.com"
+    f.nick "nick"
+    f.identifier_url "www.google.com"
+    f.password "12345"
+    f.password_confirmation "12345"
   end
 
-  factory :user_valid_oauth_params, parent: :user do |f|
-    f.oauth_params valid_oauth_hash
+  factory :user_with_changed_email, parent: :user do |f|
+    f.email "user_with_changed_email@email.com"
   end
 
-  factory :user_invalid_oauth_params, parent: :user do |f|
-    f.oauth_params invalid_oauth_hash
+  factory :user_with_invalid_login, parent: :user do |f|
+    f.email "user_with_invalid_login@email.com"
+    f.password "1"
+    f.password_confirmation "1"
+    f.password_digest "digest"
   end
+
+  factory :user_with_password_digest, parent: :user do |f|
+    f.email "user_with_password_digest@email.com"
+    f.password_digest "digest"
+  end
+
 end

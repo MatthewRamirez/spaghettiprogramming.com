@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe BlogPostsController do
 
-  User.destroy_all
-  user = FactoryGirl.create(:user)
+  user = User.find_by_email('user@email.com')
 
   describe "GET #index" do
     it "should redirect to root_path" do

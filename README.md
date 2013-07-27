@@ -7,7 +7,7 @@ Simple blog application that I wrote for learning, testing out new things, and f
 
 The spaghettiprogramming.com blog has some useful features:
 
-* Admin login through Google OAuth
+* Simple admin login through has_secure_password
 * Attach images to blog posts which are auto resized for you using the excellent paperclip gem.
 * Attach any other type of files to a blog post, also courtesy of paperclip.
 * You can specify a permalink / slug for nice looking urls or it will auto generate one based on title of blog post.
@@ -58,27 +58,15 @@ Certain config files are not in this git repository and you must make your own:
 
     development:
       GA_ACCOUNT: google analytics property account number
-      GOOGLE_KEY: development_something.apps.googleusercontent.com
-      GOOGLE_SECRET: development_secret_from_google
       SECRET_TOKEN: development_secret_token_for_session
       PAPERCLIP_HASH_SECRET: development_secret_token_for_paperclip_obfuscation
-      VALID_ADMINISTRATOR_EMAILS:
-        admin@example.com: 1
     
     test:
       GA_ACCOUNT: google analytics property account number
-      GOOGLE_KEY: test_something.apps.googleusercontent.com
-      GOOGLE_SECRET: test_secret_from_google
       SECRET_TOKEN: test_secret_token_for_session
       PAPERCLIP_HASH_SECRET: test_secret_token_for_paperclip_obfuscation
-      VALID_ADMINISTRATOR_EMAILS:
-        admin@example.com: 1
     
     production:
       GA_ACCOUNT: google analytics property account number
-      GOOGLE_KEY: production_something.apps.googleusercontent.com
-      GOOGLE_SECRET: production_secret_from_google
       SECRET_TOKEN: production_secret_token_for_session
       PAPERCLIP_HASH_SECRET: production_secret_token_for_paperclip_obfuscation
-      VALID_ADMINISTRATOR_EMAILS:
-        admin@example.com: 1

@@ -27,6 +27,7 @@
                   %li= link_to "Unpublished Blog Posts", unpublished_blog_posts_path
                   %li= link_to "New Blog Post", new_blog_post_path
                   %li= link_to "New Category", new_category_path
+                  %li= link_to "Account", edit_user_path(session[:user_id])
                   %li= link_to "Sign out", signout_path
       %br
       %p

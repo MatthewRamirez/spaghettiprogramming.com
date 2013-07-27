@@ -1,0 +1,13 @@
+=form_for @user do |f|
+  =render 'shared/error_messages', :object => f.object
+  .field= f.label :email
+  .field= f.text_field :email
+  .field= f.label :nick
+  .field= f.text_field :nick
+  .field= f.label :identifier_url
+  .field= f.text_field :identifier_url
+  .field= f.label :password
+  .field= f.password_field :password
+  .field= f.label 'Password Confirmation'
+  .field= f.password_field :password_confirmation
+  .actions= f.submit :submit

@@ -7,11 +7,11 @@ gem 'execjs'
 gem 'jquery-rails'
 gem 'pg'
 gem 'less-rails'
-gem 'omniauth-google-oauth2'
 gem 'paperclip', '~> 3.0'
 gem 'redcarpet'
 gem 'validates_email_format_of'
 gem 'will_paginate'
+gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
