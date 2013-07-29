@@ -12,6 +12,23 @@ describe BlogPostsController do
     end
   end
 
+  describe "GET #unpublished_index" do
+    context "when signed out" do
+      it "should redirect to root_path" do
+        get :unpublished_index
+        response.code.should == "302"
+        response.should redirect_to(root_path)
+      end
+    end
+    context "when signed in" do
+      it "should render the abridged index" do
+        session[:user_id] = user.id
+        get :unpublished_index
+        response.should render_template("abridged_index")
+      end
+    end
+  end
+
   describe "GET #show" do
     context "when signed out" do
       context "when post is published" do
