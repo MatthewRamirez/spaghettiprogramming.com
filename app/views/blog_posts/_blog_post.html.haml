@@ -14,6 +14,6 @@
     -if signed_in?
       %p
         =link_to :edit, edit_blog_post_path(blog_post.id)
-        =link_to :delete, blog_post_path(blog_post.id), :method => :delete
+        =link_to :delete, blog_post_path(blog_post.id), { :method => :delete, :confirm => "This will destroy the post #{blog_post.title}.  Are you sure?" }
     %div(itemprop="articleBody")
       =blog_post.rendered_content.html_safe

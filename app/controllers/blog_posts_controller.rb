@@ -8,15 +8,9 @@ class BlogPostsController < ApplicationController
   end
 
   def unpublished_index
-    redirect_to root_path and return unless signed_in?
     @title = "Unpublished Blog Posts"
-    if params.has_key? :category_id
-      @category = Category.find params[:category_id]
-      @blog_posts = @category.blog_posts.unpublished.paginate(:page => params[:page], :per_page => 5)
-    else
-      @blog_posts = BlogPost.unpublished.paginate(:page => params[:page], :per_page => 5)
-      render 'blog_posts/index'
-    end
+    @blog_posts = BlogPost.unpublished.paginate(:page => params[:page], :per_page => 20)
+    render 'blog_posts/abridged_index', :layout => 'layouts/abridged'
   end
 
   def show

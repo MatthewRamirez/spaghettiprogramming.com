@@ -1,0 +1,12 @@
+%table.table.table-bordered.table-striped
+  %thead
+    %tr
+      %th= 'Title'
+      %th= 'Preview'
+      %th= 'Author'
+      %th= 'Created At'
+      %th= 'Actions'
+  %tbody
+    -@blog_posts.each do |blog_post|
+      =render :partial => '/blog_posts/abridged_blog_post', :locals => { :blog_post => blog_post }
+    =will_paginate(@blog_posts, { :page_links => false, :previous_label => :Newer, :next_label => :Older, :container => true, :link_separator => ' | ' })
