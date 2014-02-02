@@ -38,7 +38,6 @@ group :development do
     :branch => 'rake_compatibility'
 
   gem "capistrano"
-  gem "rvm-capistrano"
   gem 'meta_request', '0.2.0'
 end
 
