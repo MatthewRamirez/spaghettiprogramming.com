@@ -37,7 +37,7 @@ group :development do
     :git => 'git://github.com/jeremyolliver/annotate_models.git',
     :branch => 'rake_compatibility'
 
-  gem "capistrano"
+   gem 'capistrano', '~> 2.15'
   gem 'meta_request', '0.2.0'
 end
 
