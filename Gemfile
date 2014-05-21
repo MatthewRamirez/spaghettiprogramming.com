@@ -12,6 +12,7 @@ gem 'redcarpet'
 gem 'validates_email_format_of'
 gem 'will_paginate'
 gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'activerecord-session_store'
 
 # Gems used only for assets and not required
 # in production environments by default.
