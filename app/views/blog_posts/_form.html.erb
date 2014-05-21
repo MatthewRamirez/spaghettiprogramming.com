@@ -1,0 +1,106 @@
+<%= form_for @blog_post, :html => { :multipart => true } do |f| %>
+  <%= render 'shared/error_messages', :object => f.object %>
+  <div class="field">
+    <%= f.label :title %>
+  </div>
+  <div class="field">
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :slug %>
+  </div>
+  <div class="field">
+    <%= f.text_field :slug %>
+  </div>
+  <div class="field">
+    <%= f.label :content %>
+  </div>
+  <div class="field">
+    <%= f.text_area :body, :rows => 20, :class=>"field span9" %>
+  </div>
+  <div class="field">
+    <%= f.label "Category for this post (recommended)" %>
+  </div>
+  <div class="field">
+    <%= f.collection_select :category_id, @categories, :id, :name, { :include_blank => true } %>
+  </div>
+  <div class="field">
+    <%= f.label "Upload images" %>
+  </div>
+  <div class="field">
+    <%= f.file_field(:blog_images_array, :multiple => true) %>
+  </div>
+  <% if @blog_images.count > 0 %>
+    <div class="field">
+      <%= f.label "Existing blog images (Select to delete)" %>
+    </div>
+    <%= f.fields_for :blog_images do |blog_images_fields| %>
+      <% if !blog_images_fields.object.new_record? %>
+        <p>
+          <%= blog_images_fields.object.image.url %>
+        </p>
+        <p>
+          <%= link_to image_tag(blog_images_fields.object.image.url(:thumb)), blog_images_fields.object.image.url %>
+          <%= blog_images_fields.check_box :_destroy %>
+        </p>
+      <% else %>
+        <p></p>
+      <% end %>
+    <% end %>
+  <% end %>
+  <div class="field">
+    <%= f.label "Upload files" %>
+  </div>
+  <div class="field">
+    <%= f.file_field(:blog_attachments_array, :multiple => true) %>
+  </div>
+  <% if @blog_attachments.count > 0 %>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>
+            <%= 'File' %>
+          </th>
+          <th>
+            <%= 'Size' %>
+          </th>
+          <th>
+            <%= 'Type' %>
+          </th>
+          <th>
+            <%= 'Delete?' %>
+          </th>
+        </tr>
+      </thead>
+      <%= f.fields_for :blog_attachments do |blog_attachments_fields| %>
+        <% if !blog_attachments_fields.object.new_record? %>
+          <tr>
+            <td>
+              <%= link_to(blog_attachments_fields.object.file.url, blog_attachments_fields.object.file.url) %>
+            </td>
+            <td>
+              <%= blog_attachments_fields.object.file.size %>
+            </td>
+            <td>
+              <%= blog_attachments_fields.object.file.content_type %>
+            </td>
+            <td>
+              <%= blog_attachments_fields.check_box :_destroy %>
+            </td>
+          </tr>
+        <% else %>
+          <p></p>
+        <% end %>
+      <% end %>
+    </table>
+  <% end %>
+  <div class="field">
+    <%= f.label "Publish this post" %>
+  </div>
+  <div class="field">
+    <%= f.check_box :published %>
+  </div>
+  <div class="actions">
+    <%= f.submit :submit %>
+  </div>
+<% end %>

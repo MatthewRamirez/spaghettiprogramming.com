@@ -1,0 +1,33 @@
+<div class="post center">(itemprop="blogPost")
+  <div>(itemscope itemtype='http://schema.org/BlogPosting')
+    <span>(itemprop="name")
+      <h1>
+        <%= link_to(blog_post.title, blog_slug_path(blog_post.slug), { :itemprop => "url", :title => blog_post.title }) %>
+      </h1>
+    </span>
+    <span class="post-date">
+      <span>(itemprop="author")
+        <span>(itemscope itemtype="http://schema.org/Person")
+          <%= link_to "#{blog_post.user.identifier_url}?rel=author", { :target => '_blank'} do %>
+            <span>(itemprop="name")
+              <%= blog_post.user.nick %>
+            </span>
+          <% end %>
+        </span>
+      </span>
+      on 
+      <span>(itemprop='datePublished')
+        <%= "#{blog_post.created_at.strftime("%Y-%m-%d")}" %>
+      </span>
+    </span>
+    <% if signed_in? %>
+      <p>
+        <%= link_to :edit, edit_blog_post_path(blog_post.id) %>
+        <%= link_to :delete, blog_post_path(blog_post.id), { :method => :delete, :confirm => "This will destroy the post #{blog_post.title}.  Are you sure?" } %>
+      </p>
+    <% end %>
+    <div>(itemprop="articleBody")
+      <%= blog_post.rendered_content.html_safe %>
+    </div>
+  </div>
+</div>
