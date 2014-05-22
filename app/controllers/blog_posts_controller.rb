@@ -36,7 +36,7 @@ class BlogPostsController < ApplicationController
     @categories = Category.all
     @blog_images = []
     @blog_attachments = []
-    @blog_post = current_user.blog_posts.build params[:blog_post]
+    @blog_post = current_user.blog_posts.build(blog_post_params)
     @blog_post.save ? redirect_to(root_path) : render(:new)
   end
 
@@ -50,7 +50,7 @@ class BlogPostsController < ApplicationController
 
   def update
     @blog_post = BlogPost.find params[:id]
-    @blog_post.update_attributes(params[:blog_post]) ? redirect_to(@blog_post) : render('edit')
+    @blog_post.update_attributes(blog_post_params) ? redirect_to(@blog_post) : render('edit')
   end
 
   def destroy
@@ -58,6 +58,14 @@ class BlogPostsController < ApplicationController
     if @blog_post.destroy
       redirect_to blog_posts_path
     end
+  end
+
+  private
+
+  def blog_post_params
+    params.require(:blog_post).permit( :title, :body, :user_id, :category_id, :published,
+      :blog_images_attributes, :blog_images_array, :slug,
+      :blog_attachments_attributes, :blog_attachments_array)
   end
 
 end

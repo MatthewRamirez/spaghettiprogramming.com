@@ -7,9 +7,6 @@ class BlogPost < ActiveRecord::Base
 
   accepts_nested_attributes_for :blog_images, :allow_destroy => true
   accepts_nested_attributes_for :blog_attachments, :allow_destroy => true
-  attr_accessible :title, :body, :user_id, :category_id, :published,
-    :blog_images_attributes, :blog_images_array, :slug,
-    :blog_attachments_attributes, :blog_attachments_array
 
   before_validation :slugify
   before_save :render_content
