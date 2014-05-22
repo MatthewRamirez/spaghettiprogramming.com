@@ -3,7 +3,7 @@ class Category < ActiveRecord::Base
 
   has_many :blog_posts
 
-  default_scope order('name')
+  default_scope { order('name') }
 
 end
 

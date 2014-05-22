@@ -1,5 +1,5 @@
 class BlogPost < ActiveRecord::Base
-  default_scope order('created_at desc')
+  default_scope { order('created_at desc') }
   belongs_to :user
   belongs_to :category
   has_many :blog_images
