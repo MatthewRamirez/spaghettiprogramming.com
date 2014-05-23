@@ -1,6 +1,5 @@
 class BlogAttachment < ActiveRecord::Base
   belongs_to :blog_post
-  attr_accessible :file
   default_scope { order('file_updated_at desc') }
   has_attached_file :file, {
     :whiny => true,
