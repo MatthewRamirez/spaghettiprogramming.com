@@ -24,6 +24,8 @@ group :assets do
   gem 'twitter-bootstrap-rails',
     :git => 'https://github.com/seyhunak/twitter-bootstrap-rails.git',
     :branch => 'bootstrap3'
+  gem 'bootstrap-sass'
+  gem 'coffee-script'
 end
 
 group :development, :test do
