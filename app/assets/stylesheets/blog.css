@@ -92,7 +92,8 @@ h6, .h6 {
   *display:inline;
 }
 .blog-header .title-image{
-  float:right;
+  float:left;
+  padding-right: 15px;
 }
 .blog-description {
   font-size: 20px;
