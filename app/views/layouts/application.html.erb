@@ -44,14 +44,16 @@
 
       <div class="blog-header">
         <h1 class="blog-title">
-          <span itemprop="name">spaghettiprogramming.com</span>
+          <span itemprop="name">Spaghetti Programming</span>
         </h1>
+        <%= link_to(
+          image_tag(
+            "/images/spaghetti1.jpg",
+            {:alt => "spaghettiprogramming.com", :title => "spaghettiprogramming.com", :class => "title-image"}
+          ),
+          root_path, { :itemprop => "url" }
+        )%>
         <p class="lead blog-description">
-          I read on the internet that you could learn how to program by writing your own blog application.
-          <%= link_to(
-            'So I did.',
-            'https://github.com/MatthewRamirez/spaghettiprogramming.com',
-            {:title => 'github', :target => '_blank'}) %>
         </p>
       </div>
 
@@ -71,7 +73,13 @@
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
           <div class="sidebar-module sidebar-module-inset">
             <h4>About</h4>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+            <p>
+              I read on the internet that you could learn how to program by writing your own blog application.
+              <%= link_to(
+                'So I did.',
+                'https://github.com/MatthewRamirez/spaghettiprogramming.com',
+                {:title => 'github', :target => '_blank'}) %>
+            </p>
           </div>
           <div class="sidebar-module">
             <h4>Archives</h4>
@@ -105,6 +113,7 @@
     </div><!-- /.container -->
 
     <div class="blog-footer">
+      <p><%= "&copy; Spaghetti Programming #{Time.now().strftime("%Y")}".html_safe %></p>
       <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
       <p>
         <a href="#">Back to top</a>
