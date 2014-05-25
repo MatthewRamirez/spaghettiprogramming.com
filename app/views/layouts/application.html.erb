@@ -25,20 +25,23 @@
 
   <body>
 
-    <% if signed_in? %>
       <div class="blog-masthead">
         <div class="container">
           <nav class="blog-nav">
-            <%= link_to("Main", root_path, {class: "blog-nav-item"}) %>
-            <%= link_to("Unpublished", unpublished_blog_posts_path, {class: "blog-nav-item"}) %>
-            <%= link_to("New Blog Post", new_blog_post_path, {class: "blog-nav-item"}) %>
-            <%= link_to("New Category", new_category_path, {class: "blog-nav-item"}) %>
-            <%= link_to("Account", edit_user_path(session[:user_id]), {class: "blog-nav-item"}) %>
-            <%= link_to("Sign out", signout_path, {class: "blog-nav-item"}) %>
+            <% if signed_in? %>
+              <%= link_to("Main", root_path, {class: "blog-nav-item"}) %>
+              <%= link_to("Unpublished", unpublished_blog_posts_path, {class: "blog-nav-item"}) %>
+              <%= link_to("New Blog Post", new_blog_post_path, {class: "blog-nav-item"}) %>
+              <%= link_to("New Category", new_category_path, {class: "blog-nav-item"}) %>
+              <%= link_to("Account", edit_user_path(session[:user_id]), {class: "blog-nav-item"}) %>
+              <%= link_to("Sign out", signout_path, {class: "blog-nav-item"}) %>
+            <% else %>
+              <%= content_tag(:a, :class => "blog-nav-item") do %>
+              <% end %>
+            <% end %>
           </nav>
         </div>
       </div>
-    <% end %>
 
     <div class="container">
 
