@@ -1,33 +1,9 @@
 <div class="blog-post" itemprop="blogPost">
   <div itemscope itemtype='http://schema.org/BlogPosting'>
     <span itemprop="name">
-      <h1>
-        <%= @blog_post.title %>
-      </h1>
+      <h1> <%= @blog_post.title %> </h1>
     </span>
-    <p class="blog-post-meta">
-      <span class="post-date">
-        <span itemprop="author">
-          <span itemscope itemtype="http://schema.org/Person">
-            <%= link_to "#{@blog_post.user.identifier_url}?rel=author", { :target => "_blank" } do %>
-              <span itemprop="name">
-                <%= @blog_post.user.nick %>
-              </span>
-            <% end %>
-          </span>
-        </span>
-        on 
-        <span itemprop='datePublished'>
-          <%= "#{@blog_post.created_at.strftime("%Y-%m-%d")}" %>
-        </span>
-      </span>
-    </p>
-    <% if signed_in? %>
-      <p>
-        <%= link_to :edit, edit_blog_post_path(@blog_post) %>
-        <%= link_to :delete, blog_post_path(@blog_post), :method => :delete %>
-      </p>
-    <% end %>
+    <%= render( :partial => '/blog_posts/blog_post_meta_header', :locals => { :blog_post => @blog_post }) %>
     <div itemprop="articleBody">
       <%= @blog_post.rendered_content.html_safe %>
     </div>
