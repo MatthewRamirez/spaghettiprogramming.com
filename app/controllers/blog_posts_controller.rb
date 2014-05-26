@@ -10,7 +10,7 @@ class BlogPostsController < ApplicationController
   def unpublished_index
     @title = "Unpublished Blog Posts"
     @blog_posts = BlogPost.unpublished.paginate(:page => params[:page], :per_page => 20)
-    render 'blog_posts/abridged_index'
+    render 'blog_posts/unpublished_index'
   end
 
   def show
