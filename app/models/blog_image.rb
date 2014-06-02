@@ -9,6 +9,7 @@ class BlogImage < ActiveRecord::Base
   }
   validates_uniqueness_of :image_file_name
   validates_presence_of :image_file_name
+  validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 end
 
 # == Schema Information
