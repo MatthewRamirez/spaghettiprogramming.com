@@ -39,6 +39,6 @@ group :development do
     :branch => 'rake_compatibility'
 
   gem 'capistrano', '~> 2.15'
-  gem 'meta_request', '0.2.0'
+  gem 'byebug'
 end
 
