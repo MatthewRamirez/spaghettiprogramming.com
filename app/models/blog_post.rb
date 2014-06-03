@@ -39,6 +39,16 @@ class BlogPost < ActiveRecord::Base
     where :published => false
   end
 
+  def self.archive(archive_slug)
+    year = archive_slug.slice(0,4)
+    month = archive_slug.slice(4,2)
+    if month == '12'
+      where( "created_at < '#{(year.to_i + 1).to_s}-01-01'::date and created_at >= '#{year}-#{month}-01'::date" )
+    else
+      where( "created_at < '#{year}-#{(month.to_i + 1).to_s}-01'::date and created_at >= '#{year}-#{month}-01'::date" )
+    end
+  end
+
   private
   def render_content
     require 'redcarpet'
