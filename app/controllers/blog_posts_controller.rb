@@ -10,7 +10,7 @@ class BlogPostsController < ApplicationController
   def archive
     @title = "Archived Blog Posts"
     @blog_posts = BlogPost.archive(params[:id]).paginate(:page => params[:page], :per_page => 5)
-    render('blog_posts/index')
+    @blog_posts.count > 0 ? render('blog_posts/index') : render('blog_posts/no_posts_in_archive')
   end
 
   def unpublished_index
