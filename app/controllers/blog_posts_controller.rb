@@ -64,8 +64,8 @@ class BlogPostsController < ApplicationController
 
   def blog_post_params
     params.require(:blog_post).permit( :title, :body, :user_id, :category_id, :published,
-      :blog_images_attributes, :slug,
-      :blog_attachments_attributes, :blog_attachments_array, :blog_images_array => [])
+      {:blog_images_attributes => [:id, :blog_post_id, :image_file_name, :image_content_type, :image_file_size, :image_updated_at, :_destroy]},
+      :slug, :blog_attachments_attributes, :blog_attachments_array, :blog_images_array => [])
   end
 
 end
