@@ -55,12 +55,15 @@ class BlogPostsController < ApplicationController
 
   def destroy
     @blog_post = BlogPost.find params[:id]
-    if @blog_post.destroy
-      redirect_to blog_posts_path
-    end
+    @blog_post.destroy
+    redirect_to(redirection_path_after_delete(request.referrer))
   end
 
   private
+
+  def redirection_path_after_delete(referrer = '/')
+    return referrer =~ /#{@blog_post.slug}/ ? '/' : referrer
+  end
 
   def blog_post_params
     params.require(:blog_post).permit( :title, :body, :user_id, :category_id, :published, :slug,
