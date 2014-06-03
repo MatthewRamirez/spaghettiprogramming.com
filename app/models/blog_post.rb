@@ -44,10 +44,10 @@ class BlogPost < ActiveRecord::Base
     year = archive_slug.slice(0,4).to_i
     month = archive_slug.slice(4,2).to_i
     if month == 12
-      where( "created_at_year < ? and created_at_month = 1 and created_at_year >= ? and created_at_month >= ?",
+      where( "created_at_year < ? and created_at_month = 1 and created_at_year >= ? and created_at_month >= ? and published",
         (year + 1), year, month)
     else
-      where( "created_at_year <= ? and created_at_month < ? and created_at_year >= ? and created_at_month >= ?",
+      where( "created_at_year <= ? and created_at_month < ? and created_at_year >= ? and created_at_month >= ? and published",
         year, (month + 1), year, month)
     end
   end
