@@ -82,18 +82,14 @@
           <div class="sidebar-module">
             <h4>Archives</h4>
             <ol class="list-unstyled">
-              <li><a href="#">January 2014</a></li>
-              <li><a href="#">December 2013</a></li>
-              <li><a href="#">November 2013</a></li>
-              <li><a href="#">October 2013</a></li>
-              <li><a href="#">September 2013</a></li>
-              <li><a href="#">August 2013</a></li>
-              <li><a href="#">July 2013</a></li>
-              <li><a href="#">June 2013</a></li>
-              <li><a href="#">May 2013</a></li>
-              <li><a href="#">April 2013</a></li>
-              <li><a href="#">March 2013</a></li>
-              <li><a href="#">February 2013</a></li>
+              <% (0..12).each do |interval| %>
+                <% next if Time.now().month == interval %>
+                <li><a href=
+                  <%="/blog_posts/archive/#{(Time.now() - interval.months).year.to_s.rjust(4, '0') +
+                    Date::MONTHNAMES.index((Date::MONTHNAMES[Time.now().month - interval])).to_s.rjust(2, '0')}"%>
+                  ><%= "#{Date::MONTHNAMES[Time.now().month - interval]} #{(Time.now() - interval.months).year}" %></a>
+                </li>
+              <% end %>
             </ol>
           </div>
           <div class="sidebar-module">
