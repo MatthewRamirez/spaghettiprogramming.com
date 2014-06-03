@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130726191238) do
+ActiveRecord::Schema.define(version: 20140603214910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,9 +50,13 @@ ActiveRecord::Schema.define(version: 20130726191238) do
     t.text     "rendered_content"
     t.boolean  "published",        default: true,    null: false
     t.text     "slug"
+    t.integer  "created_at_month"
+    t.integer  "created_at_year"
   end
 
   add_index "blog_posts", ["category_id"], name: "index_blog_posts_on_category_id", using: :btree
+  add_index "blog_posts", ["created_at_month"], name: "index_blog_posts_on_created_at_month", using: :btree
+  add_index "blog_posts", ["created_at_year"], name: "index_blog_posts_on_created_at_year", using: :btree
   add_index "blog_posts", ["published"], name: "index_blog_posts_on_published", using: :btree
   add_index "blog_posts", ["slug"], name: "index_blog_posts_on_slug", using: :btree
 

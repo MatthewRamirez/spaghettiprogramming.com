@@ -10,6 +10,7 @@ class BlogPost < ActiveRecord::Base
 
   before_validation :slugify
   before_save :render_content
+  before_save :set_created_at_month_and_year
 
   validates_uniqueness_of :slug, :title
   validates_presence_of :slug, :title, :body
@@ -40,13 +41,20 @@ class BlogPost < ActiveRecord::Base
   end
 
   def self.archive(archive_slug)
-    year = archive_slug.slice(0,4)
-    month = archive_slug.slice(4,2)
-    if month == '12'
-      where( "created_at < '#{(year.to_i + 1).to_s}-01-01'::date and created_at >= '#{year}-#{month}-01'::date" )
+    year = archive_slug.slice(0,4).to_i
+    month = archive_slug.slice(4,2).to_i
+    if month == 12
+      where( "created_at_year < ? and created_at_month = 1 and created_at_year >= ? and created_at_month >= ?",
+        (year + 1), year, month)
     else
-      where( "created_at < '#{year}-#{(month.to_i + 1).to_s}-01'::date and created_at >= '#{year}-#{month}-01'::date" )
+      where( "created_at_year <= ? and created_at_month < ? and created_at_year >= ? and created_at_month >= ?",
+        year, (month + 1), year, month)
     end
+  end
+
+  def set_created_at_month_and_year
+   self.created_at_month = self.created_at.month
+   self.created_at_year = self.created_at.year
   end
 
   private
@@ -57,6 +65,7 @@ class BlogPost < ActiveRecord::Base
     redcarpet = Redcarpet::Markdown.new( renderer, extensions )
     self.rendered_content = redcarpet.render self.body
   end
+
 end
 
 # == Schema Information
