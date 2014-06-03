@@ -1,7 +1,11 @@
 SpaghettiprogrammingCom::Application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
   resources :users, :only => [ :edit, :update ]
-  resources :blog_posts
+  resources :blog_posts do
+    collection do
+      get '/archive/:id' => 'blog_posts#archive', :as => 'archive'
+    end
+  end
   get '/blog/:slug' => 'blog_posts#slug', :as => 'blog_slug'
   get '/unpublished' => 'blog_posts#unpublished_index', :as => 'unpublished_blog_posts'
 

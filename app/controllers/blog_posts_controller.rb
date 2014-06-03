@@ -7,6 +7,12 @@ class BlogPostsController < ApplicationController
     redirect_to root_path
   end
 
+  def archive
+    @title = "Archived Blog Posts"
+    @blog_posts = BlogPost.archive(params[:id]).paginate(:page => params[:page], :per_page => 5)
+    render('blog_posts/index')
+  end
+
   def unpublished_index
     @title = "Unpublished Blog Posts"
     @blog_posts = BlogPost.unpublished.paginate(:page => params[:page], :per_page => 20)

@@ -84,10 +84,10 @@
             <ol class="list-unstyled">
               <% (0..12).each do |interval| %>
                 <% next if Time.now().month == interval %>
-                <li><a href=
-                  <%="/blog_posts/archive/#{(Time.now() - interval.months).year.to_s.rjust(4, '0') +
-                    Date::MONTHNAMES.index((Date::MONTHNAMES[Time.now().month - interval])).to_s.rjust(2, '0')}"%>
-                  ><%= "#{Date::MONTHNAMES[Time.now().month - interval]} #{(Time.now() - interval.months).year}" %></a>
+                <li><a href="
+                  <%= archive_blog_posts_path("#{(Time.now() - interval.months).year.to_s.rjust(4, '0') +
+                    Date::MONTHNAMES.index((Date::MONTHNAMES[Time.now().month - interval])).to_s.rjust(2, '0')}") %>
+                  "><%= "#{Date::MONTHNAMES[Time.now().month - interval]} #{(Time.now() - interval.months).year}" %></a>
                 </li>
               <% end %>
             </ol>
