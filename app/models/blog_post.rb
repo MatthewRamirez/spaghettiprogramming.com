@@ -53,8 +53,13 @@ class BlogPost < ActiveRecord::Base
   end
 
   def set_created_at_month_and_year
-   self.created_at_month = self.created_at.month
-   self.created_at_year = self.created_at.year
+    if self.created_at.nil?
+      self.created_at_month = Time.now.month
+      self.created_at_year = Time.now.year
+    else
+      self.created_at_month = self.created_at.month
+      self.created_at_year = self.created_at.year
+    end
   end
 
   private
