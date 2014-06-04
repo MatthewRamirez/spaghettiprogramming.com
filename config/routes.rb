@@ -4,10 +4,10 @@ SpaghettiprogrammingCom::Application.routes.draw do
   resources :blog_posts do
     collection do
       get '/archive/:id' => 'blog_posts#archive', :as => 'archive'
+      get '/unpublished' => 'blog_posts#unpublished_index', :as => 'unpublished'
     end
   end
-  get '/blog/:slug' => 'blog_posts#slug', :as => 'blog_slug'
-  get '/unpublished' => 'blog_posts#unpublished_index', :as => 'unpublished_blog_posts'
+  get '/blog_posts/slug/:slug' => 'blog_posts#slug', :as => 'blog_slug'
 
   resources :categories do
     resources :blog_posts, :only => [ :index ]
