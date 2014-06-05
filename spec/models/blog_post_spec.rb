@@ -35,6 +35,28 @@ describe BlogPost do
     FactoryGirl.create(:blog_post).should be_persisted
   end
 
+  context "when created_at is nil" do
+    it "sets created_at_month to current month" do
+      blog_post = FactoryGirl.create(:blog_post)
+      blog_post.created_at_month.should == Time.now.month
+    end
+    it "sets created_at_year to current year" do
+      blog_post = FactoryGirl.create(:blog_post)
+      blog_post.created_at_year.should == Time.now.year
+    end
+  end
+
+  context "when created_at is not nil" do
+    it "sets created_at month to created_at.month" do
+      blog_post = FactoryGirl.create(:blog_post, :created_at => (Time.now - 18.months))
+      blog_post.created_at_month.should == blog_post.created_at.month
+    end
+    it "sets created_at year to created_at.year" do
+      blog_post = FactoryGirl.create(:blog_post, :created_at => (Time.now - 18.months))
+      blog_post.created_at_year.should == blog_post.created_at.year
+    end
+  end
+
 end
 
 # == Schema Information
