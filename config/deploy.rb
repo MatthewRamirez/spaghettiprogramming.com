@@ -20,7 +20,7 @@ set :deploy_via, :remote_cache
 set :deploy_to, "/var/www/spaghettiprogramming.com"
 set :keep_releases, 5
 set :ssh_options, {:forward_agent => true}
-set :ruby_version, "ruby-2.0.0-p247"
+set :ruby_version, "ruby-2.1.2"
 set :bundle_cmd, "/usr/local/bin/chruby-exec #{ruby_version} -- bundle"
 set :rake,  "/usr/local/bin/chruby-exec #{ruby_version} -- bundle exec rake"
 
