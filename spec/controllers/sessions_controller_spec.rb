@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe SessionsController do
 
+  let(:user) { FactoryGirl.create(:user) }
+
   describe "POST #destroy" do
     it "signs the user out" do
       session[:user_id] = 1
@@ -19,10 +21,12 @@ describe SessionsController do
     context "when the user has a valid email" do
       context "and the user exists" do
         it "signs the user in" do
+          user
           post :create, user: FactoryGirl.attributes_for(:user)
           session[:user_id].should_not == nil
         end
         it "redirects to root_path" do
+          user
           post :create, user: FactoryGirl.attributes_for(:user)
           response.code.should == "302"
           response.should redirect_to(root_path)
@@ -40,6 +44,23 @@ describe SessionsController do
         response.should render_template(:new)
       end
     end
-
   end
+
+  describe "GET #new" do
+    context "when signed out" do
+      it "renders the new view" do
+        get :new
+        response.should render_template('new')
+      end
+    end
+    context "when signed in" do
+      it "redirects to root path" do
+        session[:user_id] = user.id
+        get :new
+        response.code.should == "302"
+        response.should redirect_to(root_path)
+      end
+    end
+  end
+
 end
