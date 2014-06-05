@@ -1,5 +1,5 @@
 class BlogPost < ActiveRecord::Base
-  default_scope order('created_at desc')
+  default_scope { order('created_at desc') }
   belongs_to :user
   belongs_to :category
   has_many :blog_images
@@ -7,12 +7,10 @@ class BlogPost < ActiveRecord::Base
 
   accepts_nested_attributes_for :blog_images, :allow_destroy => true
   accepts_nested_attributes_for :blog_attachments, :allow_destroy => true
-  attr_accessible :title, :body, :user_id, :category_id, :published,
-    :blog_images_attributes, :blog_images_array, :slug,
-    :blog_attachments_attributes, :blog_attachments_array
 
   before_validation :slugify
   before_save :render_content
+  before_save :set_created_at_month_and_year
 
   validates_uniqueness_of :slug, :title
   validates_presence_of :slug, :title, :body
@@ -42,6 +40,28 @@ class BlogPost < ActiveRecord::Base
     where :published => false
   end
 
+  def self.archive(archive_slug)
+    year = archive_slug.slice(0,4).to_i
+    month = archive_slug.slice(4,2).to_i
+    if month == 12
+      where( "created_at_year < ? and created_at_month = 1 and created_at_year >= ? and created_at_month >= ? and published",
+        (year + 1), year, month)
+    else
+      where( "created_at_year <= ? and created_at_month < ? and created_at_year >= ? and created_at_month >= ? and published",
+        year, (month + 1), year, month)
+    end
+  end
+
+  def set_created_at_month_and_year
+    if self.created_at.nil?
+      self.created_at_month = Time.now.month
+      self.created_at_year = Time.now.year
+    else
+      self.created_at_month = self.created_at.month
+      self.created_at_year = self.created_at.year
+    end
+  end
+
   private
   def render_content
     require 'redcarpet'
@@ -50,6 +70,7 @@ class BlogPost < ActiveRecord::Base
     redcarpet = Redcarpet::Markdown.new( renderer, extensions )
     self.rendered_content = redcarpet.render self.body
   end
+
 end
 
 # == Schema Information

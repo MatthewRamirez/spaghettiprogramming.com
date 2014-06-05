@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="/images/favicon.ico" rel="shortcut icon"></link>
+
+    <title><%= title %></title>
+
+    <%= csrf_meta_tags %>
+    <%= javascript_include_tag 'application' %>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+      <div class="blog-masthead">
+        <div class="container">
+          <nav class="blog-nav">
+            <% if signed_in? %>
+              <%= link_to("Main", root_path, {class: "blog-nav-item"}) %>
+              <%= link_to("Unpublished", unpublished_blog_posts_path, {class: "blog-nav-item"}) %>
+              <%= link_to("New Blog Post", new_blog_post_path, {class: "blog-nav-item"}) %>
+              <%= link_to("New Category", new_category_path, {class: "blog-nav-item"}) %>
+              <%= link_to("Account", edit_user_path(session[:user_id]), {class: "blog-nav-item"}) %>
+              <%= link_to("Sign out", signout_path, {class: "blog-nav-item"}) %>
+            <% else %>
+              <%= content_tag(:a, :class => "blog-nav-item") do %>
+              <% end %>
+            <% end %>
+          </nav>
+        </div>
+      </div>
+
+    <div class="container">
+
+      <div class="blog-header">
+        <h1 class="blog-title">
+          <span itemprop="name">Spaghetti Programming</span>
+        </h1>
+        <%= link_to(
+          image_tag(
+            "/images/spaghetti1.jpg",
+            {:alt => "spaghettiprogramming.com", :title => "spaghettiprogramming.com", :class => "title-image"}
+          ),
+          root_path, { :itemprop => "url" }
+        )%>
+        <p class="lead blog-description">
+        </p>
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-8 blog-main">
+
+          <%= yield %>
+
+        </div><!-- /.blog-main -->
+
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          <div class="sidebar-module sidebar-module-inset">
+            <h4>About</h4>
+            <p>
+              I read on the internet that you could learn how to program by writing your own blog application.
+              <%= link_to(
+                'So I did.',
+                'https://github.com/MatthewRamirez/spaghettiprogramming.com',
+                {:title => 'github', :target => '_blank'}) %>
+            </p>
+          </div>
+          <div class="sidebar-module">
+            <h4>Archives</h4>
+            <ol class="list-unstyled">
+              <% (0..12).each do |interval| %>
+                <% next if Time.now().month == interval %>
+                <li><a href="
+                  <%= archive_blog_posts_path("#{(Time.now() - interval.months).year.to_s.rjust(4, '0') +
+                    Date::MONTHNAMES.index((Date::MONTHNAMES[Time.now().month - interval])).to_s.rjust(2, '0')}") %>
+                  "><%= "#{Date::MONTHNAMES[Time.now().month - interval]} #{(Time.now() - interval.months).year}" %></a>
+                </li>
+              <% end %>
+            </ol>
+          </div>
+          <div class="sidebar-module">
+            <h4>Elsewhere</h4>
+            <ol class="list-unstyled">
+              <li><a href="http://github.com/MatthewRamirez">GitHub</a></li>
+              <li><a href="https://www.linkedin.com/pub/matthew-ramirez/4/49/16b">LinkedIn</a></li>
+              <li><a href="https://plus.google.com/115745403673562093230">Google+</a></li>
+            </ol>
+          </div>
+        </div><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </div><!-- /.container -->
+
+    <div class="blog-footer">
+      <p><%= "&copy; Spaghetti Programming #{Time.now().strftime("%Y")}".html_safe %></p>
+      <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+      <p>
+        <a href="#">Back to top</a>
+      </p>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<tr>
+  <td>
+    <%= link_to(blog_post.title, blog_slug_path(blog_post.slug), { :title => blog_post.title }) %>
+  </td>
+  <td>
+    <%= truncate( blog_post.body, {:length => 200} ) %>
+  </td>
+  <td>
+    <%= link_to "#{blog_post.user.identifier_url}", { :target => '_blank'} do %>
+      <%= blog_post.user.nick %>
+    <% end %>
+  </td>
+  <td>
+    <%= "#{blog_post.created_at.strftime("%Y-%m-%d")}" %>
+  </td>
+  <td>
+    <%= link_to :edit, edit_blog_post_path(blog_post.id) %>
+    <%= link_to :delete, blog_post_path(blog_post.id), { :method => :delete, :confirm => "This will destroy the post #{blog_post.title}.  Are you sure?" } %>
+  </td>
+</tr>

@@ -1,0 +1,28 @@
+development:
+  GA_ACCOUNT: xxx
+  GOOGLE_KEY: google_key
+  GOOGLE_SECRET: google_secret
+  SECRET_TOKEN: secret_token_for_sessions
+  PAPERCLIP_HASH_SECRET: secret_used_to_obfuscate_paperclip_attachment_names
+  VALID_ADMINISTRATOR_EMAILS:
+    email@email.com: 1
+
+test:
+  GA_ACCOUNT: xxx
+  GOOGLE_KEY: google_key
+  GOOGLE_SECRET: google_secret
+  SECRET_TOKEN: secret_token_for_sessions
+  PAPERCLIP_HASH_SECRET: secret_used_to_obfuscate_paperclip_attachment_names
+  VALID_ADMINISTRATOR_EMAILS:
+    email@email.com: 1
+
+production:
+  GA_ACCOUNT: xxx
+  GOOGLE_KEY: google_key
+  GOOGLE_SECRET: google_secret
+  SECRET_TOKEN: secret_token_for_sessions
+  PAPERCLIP_HASH_SECRET: secret_used_to_obfuscate_paperclip_attachment_names
+  VALID_ADMINISTRATOR_EMAILS:
+    email@email.com: 1
+
+

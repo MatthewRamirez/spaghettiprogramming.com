@@ -1,7 +1,6 @@
 class BlogImage < ActiveRecord::Base
   belongs_to :blog_post
-  attr_accessible :image
-  default_scope order('image_updated_at desc')
+  default_scope { order('image_updated_at desc') }
   has_attached_file :image, {
     :whiny => true,
     :url => "/system/:class/:style/:filename",
@@ -10,6 +9,7 @@ class BlogImage < ActiveRecord::Base
   }
   validates_uniqueness_of :image_file_name
   validates_presence_of :image_file_name
+  validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 end
 
 # == Schema Information

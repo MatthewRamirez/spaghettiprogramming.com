@@ -1,16 +1,22 @@
 class BlogPostsController < ApplicationController
   include ApplicationHelper
 
-  before_filter :redirect_to_root_unless_signed_in, :except => [ :index, :slug, :show ]
+  before_filter :redirect_to_root_unless_signed_in, :except => [ :index, :slug, :show, :archive ]
 
   def index
     redirect_to root_path
   end
 
+  def archive
+    @title = "Archived Blog Posts"
+    @blog_posts = BlogPost.archive(params[:id]).paginate(:page => params[:page], :per_page => 5)
+    @blog_posts.count > 0 ? render('blog_posts/index') : render('blog_posts/no_posts_in_archive')
+  end
+
   def unpublished_index
     @title = "Unpublished Blog Posts"
     @blog_posts = BlogPost.unpublished.paginate(:page => params[:page], :per_page => 20)
-    render 'blog_posts/abridged_index', :layout => 'layouts/abridged'
+    render 'blog_posts/unpublished_index'
   end
 
   def show
@@ -36,7 +42,7 @@ class BlogPostsController < ApplicationController
     @categories = Category.all
     @blog_images = []
     @blog_attachments = []
-    @blog_post = current_user.blog_posts.build params[:blog_post]
+    @blog_post = current_user.blog_posts.build(blog_post_params)
     @blog_post.save ? redirect_to(root_path) : render(:new)
   end
 
@@ -50,14 +56,27 @@ class BlogPostsController < ApplicationController
 
   def update
     @blog_post = BlogPost.find params[:id]
-    @blog_post.update_attributes(params[:blog_post]) ? redirect_to(@blog_post) : render('edit')
+    @blog_post.update_attributes(blog_post_params) ? redirect_to(@blog_post) : render('edit')
   end
 
   def destroy
     @blog_post = BlogPost.find params[:id]
-    if @blog_post.destroy
-      redirect_to blog_posts_path
-    end
+    @blog_post.destroy
+    redirect_to(redirection_path_after_delete(request.referrer))
+  end
+
+  private
+
+  def redirection_path_after_delete(referrer = '/')
+    return referrer =~ /#{@blog_post.slug}/ ? '/' : referrer
+  end
+
+  def blog_post_params
+    params.require(:blog_post).permit( :title, :body, :user_id, :category_id, :published, :slug,
+      {:blog_images_attributes => [:id, :blog_post_id, :image_file_name, :image_content_type, :image_file_size, :image_updated_at, :_destroy]},
+      {:blog_images_array => []},
+      {:blog_attachments_attributes => [:id, :blog_post_id, :file_file_name, :file_content_type, :file_file_size, :file_updated_at, :_destroy]},
+      {:blog_attachments_array => []})
   end
 
 end

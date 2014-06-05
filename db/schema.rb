@@ -9,77 +9,84 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130726191238) do
+ActiveRecord::Schema.define(version: 20140603214910) do
 
-  create_table "blog_attachments", :force => true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "blog_attachments", force: true do |t|
     t.integer  "blog_post_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "file_file_name"
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
   end
 
-  add_index "blog_attachments", ["blog_post_id"], :name => "index_blog_attachments_on_blog_post_id"
+  add_index "blog_attachments", ["blog_post_id"], name: "index_blog_attachments_on_blog_post_id", using: :btree
 
-  create_table "blog_images", :force => true do |t|
+  create_table "blog_images", force: true do |t|
     t.integer  "blog_post_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
   end
 
-  add_index "blog_images", ["blog_post_id"], :name => "index_blog_images_on_blog_post_id"
+  add_index "blog_images", ["blog_post_id"], name: "index_blog_images_on_blog_post_id", using: :btree
 
-  create_table "blog_posts", :force => true do |t|
-    t.text     "title",                              :null => false
-    t.text     "body",                               :null => false
+  create_table "blog_posts", force: true do |t|
+    t.text     "title",                              null: false
+    t.text     "body",                               null: false
     t.integer  "category_id"
     t.integer  "user_id"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",       default: "now()"
+    t.datetime "updated_at",       default: "now()"
     t.text     "rendered_content"
-    t.boolean  "published",        :default => true, :null => false
+    t.boolean  "published",        default: true,    null: false
     t.text     "slug"
+    t.integer  "created_at_month"
+    t.integer  "created_at_year"
   end
 
-  add_index "blog_posts", ["category_id"], :name => "index_blog_posts_on_category_id"
-  add_index "blog_posts", ["published"], :name => "index_blog_posts_on_published"
-  add_index "blog_posts", ["slug"], :name => "index_blog_posts_on_slug"
+  add_index "blog_posts", ["category_id"], name: "index_blog_posts_on_category_id", using: :btree
+  add_index "blog_posts", ["created_at_month"], name: "index_blog_posts_on_created_at_month", using: :btree
+  add_index "blog_posts", ["created_at_year"], name: "index_blog_posts_on_created_at_year", using: :btree
+  add_index "blog_posts", ["published"], name: "index_blog_posts_on_published", using: :btree
+  add_index "blog_posts", ["slug"], name: "index_blog_posts_on_slug", using: :btree
 
-  create_table "categories", :force => true do |t|
-    t.text     "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+  create_table "categories", force: true do |t|
+    t.text     "name",                         null: false
+    t.datetime "created_at", default: "now()"
+    t.datetime "updated_at", default: "now()"
   end
 
-  add_index "categories", ["name"], :name => "index_categories_on_name", :unique => true
+  add_index "categories", ["name"], name: "index_categories_on_name", unique: true, using: :btree
 
-  create_table "sessions", :force => true do |t|
-    t.string   "session_id", :null => false
+  create_table "sessions", force: true do |t|
+    t.string   "session_id", null: false
     t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
-  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
-  create_table "users", :force => true do |t|
-    t.text     "email",           :null => false
+  create_table "users", force: true do |t|
+    t.text     "email",                             null: false
     t.text     "identifier_url"
     t.text     "nick"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",      default: "now()"
+    t.datetime "updated_at",      default: "now()"
     t.text     "password_digest"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email_address", :unique => true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
 end
