@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   it "has a valid factory" do
-    FactoryGirl.create(:user_with_changed_email).should be_valid
+    FactoryGirl.create(:user).should be_valid
   end
 
   it "is invalid without an email" do
@@ -10,6 +10,7 @@ describe User do
   end
 
   it "does not allow duplicate emails" do
+    FactoryGirl.create(:user)
     FactoryGirl.build(:user).should_not be_valid
   end
 
@@ -18,7 +19,7 @@ describe User do
   end
 
   it "can be saved successfully" do
-    FactoryGirl.create(:user_with_changed_email).should be_persisted
+    FactoryGirl.create(:user).should be_persisted
   end
 
 end
