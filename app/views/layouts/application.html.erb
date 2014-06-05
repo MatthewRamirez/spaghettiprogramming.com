@@ -114,6 +114,9 @@
       </p>
     </div>
 
+    <% if !signed_in %>
+      <%= render(:partial => '/layouts/ga') %>
+    <% end %>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
