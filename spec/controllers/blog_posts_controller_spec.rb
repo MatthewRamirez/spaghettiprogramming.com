@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe BlogPostsController do
 
-  user = User.find_by_email('user@email.com')
+  let(:user) { FactoryGirl.create(:user) }
 
   describe "GET #index" do
     it "should redirect to root_path" do
@@ -21,10 +21,10 @@ describe BlogPostsController do
       end
     end
     context "when signed in" do
-      it "should render the abridged index" do
+      it "should render the unpublished index" do
         session[:user_id] = user.id
         get :unpublished_index
-        response.should render_template("abridged_index")
+        response.should render_template("unpublished_index")
       end
     end
   end
@@ -114,9 +114,7 @@ describe BlogPostsController do
   end
 
   describe "GET #new" do
-    #need to sign in for this and idk how to do that atm
     context "when signed in" do
-
       it "assigns a new blog_post to @blog_post" do
         session[:user_id] = user.id
         get :new
