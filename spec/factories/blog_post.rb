@@ -6,6 +6,7 @@ FactoryGirl.define do
     f.body "Test body"
     f.slug "Test slug"
     f.published true
+    f.created_at "2014-06-01".to_date
     f.blog_attachments_array blog_attachments
   end
 

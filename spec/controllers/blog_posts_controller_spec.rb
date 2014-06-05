@@ -3,10 +3,11 @@ require 'spec_helper'
 describe BlogPostsController do
 
   let(:user) { FactoryGirl.create(:user) }
+  let(:blog_post) { FactoryGirl.create(:blog_post) }
 
   describe "GET #index" do
     it "should redirect to root_path" do
-      get :new
+      get :index
       response.code.should == "302"
       response.should redirect_to(root_path)
     end
@@ -34,18 +35,15 @@ describe BlogPostsController do
       context "when post is published" do
 
         it "assigns the requested blog_post to @blog_post" do
-          blog_post = FactoryGirl.create(:blog_post)
           get :show, :id => blog_post
           assigns(:blog_post).should eq(blog_post)
         end
 
         it "redirects to blog_slug_path" do
-          blog_post = FactoryGirl.create(:blog_post)
           get :show, id: blog_post
           response.code.should == "302"
           response.should redirect_to(blog_slug_path(blog_post.slug))
         end
-
       end
 
       context "when post is unpublished" do
@@ -183,4 +181,20 @@ describe BlogPostsController do
       end
     end
   end
+
+  describe "GET #archive" do
+    context "when an archive month has posts" do
+      it "renders the index template" do
+        get :archive, id: "#{blog_post.created_at_year.to_s + blog_post.created_at_month.to_s}"
+        response.should render_template('index')
+      end
+    end
+    context "when an archive month is empty" do
+      it "renders the empty archive template" do
+        get :archive, id: 000000
+        response.should render_template('no_posts_in_archive')
+      end
+    end
+  end
+
 end
