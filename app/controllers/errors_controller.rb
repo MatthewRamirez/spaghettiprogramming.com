@@ -4,6 +4,4 @@ class ErrorsController < ApplicationController
     render( :file => '/errors/error_404', :layout => false)
   end
 
-  def error_500
-  end
 end
