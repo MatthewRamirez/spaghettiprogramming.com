@@ -13,6 +13,17 @@ describe PagesController do
       get :home
       response.should render_template('blog_posts/index')
     end
+
+    it "renders the application layout" do
+      get :home
+      response.should render_template(:layout => 'layouts/application')
+    end
+
+    it "returns response code 200" do
+      get :home
+      response.code.should == '200'
+    end
+
   end
 
 end
