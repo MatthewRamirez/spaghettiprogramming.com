@@ -82,10 +82,12 @@ end
 #  body             :text            not null
 #  category_id      :integer
 #  user_id          :integer
-#  created_at       :datetime        not null
-#  updated_at       :datetime        not null
+#  created_at       :datetime
+#  updated_at       :datetime
 #  rendered_content :text
 #  published        :boolean         default(TRUE), not null
 #  slug             :text
+#  created_at_month :integer
+#  created_at_year  :integer
 #
 

@@ -18,8 +18,8 @@ end
 #
 #  id                 :integer         not null, primary key
 #  blog_post_id       :integer
-#  created_at         :datetime        not null
-#  updated_at         :datetime        not null
+#  created_at         :datetime
+#  updated_at         :datetime
 #  image_file_name    :string(255)
 #  image_content_type :string(255)
 #  image_file_size    :integer

@@ -17,8 +17,8 @@ end
 #
 #  id                :integer         not null, primary key
 #  blog_post_id      :integer
-#  created_at        :datetime        not null
-#  updated_at        :datetime        not null
+#  created_at        :datetime
+#  updated_at        :datetime
 #  file_file_name    :string(255)
 #  file_content_type :string(255)
 #  file_file_size    :integer

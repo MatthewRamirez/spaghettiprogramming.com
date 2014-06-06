@@ -32,8 +32,8 @@ end
 #  email           :text            not null
 #  identifier_url  :text
 #  nick            :text
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
+#  created_at      :datetime
+#  updated_at      :datetime
 #  password_digest :text
 #
 
