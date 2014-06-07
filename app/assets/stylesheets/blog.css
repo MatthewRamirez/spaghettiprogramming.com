@@ -91,6 +91,12 @@ h6, .h6 {
   display:inline-block;
   *display:inline;
 }
+
+.blog-header .blog-title a {
+  text-decoration: none;
+  color: #000000;
+}
+
 .blog-header .title-image{
   float:left;
   padding-right: 15px;

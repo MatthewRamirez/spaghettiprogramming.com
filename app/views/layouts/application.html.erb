@@ -46,9 +46,6 @@
     <div class="container">
 
       <div class="blog-header">
-        <h1 class="blog-title">
-          <span itemprop="name">Spaghetti Programming</span>
-        </h1>
         <%= link_to(
           image_tag(
             "/images/spaghetti1.jpg",
@@ -56,6 +53,10 @@
           ),
           root_path, { :itemprop => "url" }
         )%>
+        <h1 class="blog-title">
+          <span itemprop="name"><%= link_to('Spaghetti Programming', root_path, :title => 'spaghettiprogramming.com') %></span>
+        </h1>
+
         <p class="lead blog-description">
         </p>
       </div>
