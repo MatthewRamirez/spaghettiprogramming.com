@@ -1,51 +1,73 @@
-require 'bundler/capistrano'
-
-default_run_options[:shell] = '/bin/bash'
-
-deployment_files = "/home/deploy/deployment_files/spaghettiprogramming.com"
-
-server "127.0.0.1", :app, :web, :db, :primary => true
-
-role :app, "127.0.0.1"
-role :web, "127.0.0.1"
-role :db, "127.0.0.1", :primary => true
+# config valid only for Capistrano 3.1
+lock '3.1.0'
 
 set :application, 'spaghettiprogramming.com'
-set :scm, "git"
-set :repository, "git@github.com:MatthewRamirez/spaghettiprogramming.com.git"
-set :branch, "master"
-set :user, "deploy"
-set :use_sudo, false
-set :deploy_via, :remote_cache
-set :deploy_to, "/var/www/spaghettiprogramming.com"
+set :deploy_user, 'deploy'
+
+set :scm, :git
+set :repo_url, 'git@github.com:MatthewRamirez/spaghettiprogramming.com.git'
+
+set :chruby_ruby, 'ruby-2.1.2'
+
 set :keep_releases, 5
-set :ssh_options, {:forward_agent => true}
-set :ruby_version, "ruby-2.1.2"
-set :bundle_cmd, "/usr/local/bin/chruby-exec #{ruby_version} -- bundle"
-set :rake,  "/usr/local/bin/chruby-exec #{ruby_version} -- bundle exec rake"
 
-after "deploy:update_code",:preconfigure
-before "deploy:assets:precompile", "bundle:install"
+set :linked_files, %w{config/database.yml config/application_config.yml}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
-desc "set up passwords and configuration"
-task :preconfigure do
-  run "cp #{deployment_files}/application_config.yml #{shared_path}"
-  run "ln -sf #{shared_path}/application_config.yml #{release_path}/config/application_config.yml"
+set :tests, []
 
-  run "cp #{deployment_files}/database.yml #{shared_path}"
-  run "ln -sf #{shared_path}/database.yml #{release_path}/config/database.yml"
-end
+# Default branch is :master
+# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+
+# Default deploy_to directory is /var/www/my_app
+# set :deploy_to, '/var/www/my_app'
+
+# Default value for :scm is :git
+# set :scm, :git
+
+# Default value for :format is :pretty
+# set :format, :pretty
+
+# Default value for :log_level is :debug
+# set :log_level, :debug
+
+# Default value for :pty is false
+# set :pty, true
+
+# Default value for :linked_files is []
+# set :linked_files, %w{config/database.yml}
+
+# Default value for linked_dirs is []
+# set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+
+# Default value for keep_releases is 5
+# set :keep_releases, 5
 
 namespace :deploy do
-  task :start do
+
+  before :deploy, "deploy:check_revision"
+  before :deploy, "deploy:run_tests"
+  after 'deploy:symlink:shared', 'deploy:compile_assets_locally'
+  after :finishing, 'deploy:cleanup'
+
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute :touch, release_path.join('tmp/restart.txt')
+    end
   end
-  task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
+
+  after :publishing, :restart
+
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      within release_path do
+        execute :rake, 'cache:clear'
+      end
+    end
   end
+
 end
-
-after "deploy:restart", "deploy:cleanup"
-
-load 'deploy/assets'
-
