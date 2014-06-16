@@ -13,6 +13,9 @@ gem 'validates_email_format_of'
 gem 'will_paginate'
 gem 'bcrypt-ruby', '~> 3.1.5'
 gem 'activerecord-session_store'
+gem 'twitter-bootstrap-rails',
+  :git => 'https://github.com/seyhunak/twitter-bootstrap-rails.git',
+  :branch => 'bootstrap3'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,9 +24,6 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
-  gem 'twitter-bootstrap-rails',
-    :git => 'https://github.com/seyhunak/twitter-bootstrap-rails.git',
-    :branch => 'bootstrap3'
   gem 'bootstrap-sass'
   gem 'coffee-script'
 end
@@ -38,7 +38,10 @@ group :development do
     :git => 'git://github.com/jeremyolliver/annotate_models.git',
     :branch => 'rake_compatibility'
 
-  gem 'capistrano', '~> 2.15'
+  gem 'capistrano', '~> 3.1.0'
+  gem 'capistrano-rails', '~> 1.1.0'
+  gem 'capistrano-bundler'
+  gem 'capistrano-chruby', '~> 0.1.1'
   gem 'byebug'
 end
 
