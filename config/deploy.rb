@@ -11,6 +11,7 @@ set :chruby_ruby, 'ruby-2.1.2'
 
 set :keep_releases, 5
 
+set :config_files, %w{/home/deploy/deployment_files/spaghettiprogramming.com/database.yml /home/deploy/deployment_files/spaghettiprogramming.com/application_config.yml}
 set :linked_files, %w{config/database.yml config/application_config.yml}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
