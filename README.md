@@ -14,6 +14,17 @@ The spaghettiprogramming.com blog has some useful features:
 * Can have non public blog posts for articles you are working on, or just don't want people to see.
 * Can use markdown in blog posts which will get rendered and formatted nicely.
 
+## Dependencies and Versions
+
+* Ruby 2.1.2
+* Rails 4.1.1
+* PostgreSQL 9.1.13
+
+## Test Suite
+
+This application contains a test suite written with rspec.  To run the test suite simple run:
+
+     rspec spec
 
 ## Setup and Configuration
 
@@ -35,7 +46,7 @@ Certain config files are not in this git repository and you must make your own:
       port: 5432
       pool: 5
       timeout: 5000
-    
+
     test:
       adapter: postgresql
       encoding: utf8
@@ -43,7 +54,7 @@ Certain config files are not in this git repository and you must make your own:
       port: 5432
       pool: 5
       timeout: 5000
-    
+
     production:
       adapter: postgresql
       encoding: utf8
@@ -60,12 +71,12 @@ Certain config files are not in this git repository and you must make your own:
       GA_ACCOUNT: google analytics property account number
       SECRET_TOKEN: development_secret_token_for_session
       PAPERCLIP_HASH_SECRET: development_secret_token_for_paperclip_obfuscation
-    
+
     test:
       GA_ACCOUNT: google analytics property account number
       SECRET_TOKEN: test_secret_token_for_session
       PAPERCLIP_HASH_SECRET: test_secret_token_for_paperclip_obfuscation
-    
+
     production:
       GA_ACCOUNT: google analytics property account number
       SECRET_TOKEN: production_secret_token_for_session
