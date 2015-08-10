@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe BlogPostsController do
+describe BlogPostsController, type: :controller do
 
   let(:user) { FactoryGirl.create(:user) }
   let(:blog_post) { FactoryGirl.create(:blog_post) }

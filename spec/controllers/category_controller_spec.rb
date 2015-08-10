@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CategoriesController do
+describe CategoriesController, type: :controller do
 
   let(:user) { FactoryGirl.create(:user) }
   let(:category) { FactoryGirl.create(:category) }

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ErrorsController do
+describe ErrorsController, type: :controller do
 
   describe "GET #error_404" do
     it "renders the error_404 template" do

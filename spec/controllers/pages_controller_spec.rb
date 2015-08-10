@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PagesController do
+describe PagesController, type: :controller do
 
   describe "GET #home" do
     it "populates an array of blog posts" do
