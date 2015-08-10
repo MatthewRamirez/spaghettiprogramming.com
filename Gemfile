@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.1'
-gem 'rack', '1.5.2'
+gem 'rails', '4.2.3'
+gem 'rack'
 gem 'haml'
 gem 'execjs'
 gem 'jquery-rails'
@@ -11,7 +11,7 @@ gem 'paperclip', '~> 3.0'
 gem 'redcarpet'
 gem 'validates_email_format_of'
 gem 'will_paginate'
-gem 'bcrypt-ruby', '~> 3.1.5'
+gem 'bcrypt-ruby', '~> 3.1'
 gem 'activerecord-session_store'
 gem 'twitter-bootstrap-rails',
   :git => 'https://github.com/seyhunak/twitter-bootstrap-rails.git',
