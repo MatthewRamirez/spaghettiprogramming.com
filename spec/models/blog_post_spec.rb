@@ -57,6 +57,11 @@ describe BlogPost do
     end
   end
 
+  it "renders content when saved" do
+    blog_post = FactoryGirl.create(:blog_post, :rendered_content => nil)
+    expect(blog_post.rendered_content).to_not eq(nil)
+  end
+
 end
 
 # == Schema Information
