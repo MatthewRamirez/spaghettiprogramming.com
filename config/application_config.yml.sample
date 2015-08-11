@@ -3,6 +3,7 @@ development:
   GOOGLE_KEY: google_key
   GOOGLE_SECRET: google_secret
   SECRET_TOKEN: secret_token_for_sessions
+  SECRET_KEY_BASE: secret_key_used_to_encrypt_cookies
   PAPERCLIP_HASH_SECRET: secret_used_to_obfuscate_paperclip_attachment_names
   VALID_ADMINISTRATOR_EMAILS:
     email@email.com: 1
@@ -12,6 +13,7 @@ test:
   GOOGLE_KEY: google_key
   GOOGLE_SECRET: google_secret
   SECRET_TOKEN: secret_token_for_sessions
+  SECRET_KEY_BASE: secret_key_used_to_encrypt_cookies
   PAPERCLIP_HASH_SECRET: secret_used_to_obfuscate_paperclip_attachment_names
   VALID_ADMINISTRATOR_EMAILS:
     email@email.com: 1
@@ -21,6 +23,7 @@ production:
   GOOGLE_KEY: google_key
   GOOGLE_SECRET: google_secret
   SECRET_TOKEN: secret_token_for_sessions
+  SECRET_KEY_BASE: secret_key_used_to_encrypt_cookies
   PAPERCLIP_HASH_SECRET: secret_used_to_obfuscate_paperclip_attachment_names
   VALID_ADMINISTRATOR_EMAILS:
     email@email.com: 1
