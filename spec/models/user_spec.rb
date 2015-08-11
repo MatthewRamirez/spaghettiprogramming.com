@@ -2,24 +2,24 @@ require 'spec_helper'
 
 describe User do
   it "has a valid factory" do
-    FactoryGirl.create(:user).should be_valid
+    expect(FactoryGirl.create(:user)).to be_valid
   end
 
   it "is invalid without an email" do
-    FactoryGirl.build(:user, :email => nil).should_not be_valid
+    expect(FactoryGirl.build(:user, :email => nil)).to_not be_valid
   end
 
   it "does not allow duplicate emails" do
     FactoryGirl.create(:user)
-    FactoryGirl.build(:user).should_not be_valid
+    expect(FactoryGirl.build(:user)).to_not be_valid
   end
 
   it "can be instantiated" do
-    FactoryGirl.build(:user).should be_an_instance_of(User)
+    expect(FactoryGirl.build(:user)).to be_an_instance_of(User)
   end
 
   it "can be saved successfully" do
-    FactoryGirl.create(:user).should be_persisted
+    expect(FactoryGirl.create(:user)).to be_persisted
   end
 
 end
