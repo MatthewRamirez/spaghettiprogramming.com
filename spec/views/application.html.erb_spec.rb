@@ -1,10 +1,9 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "rendering the application layout" do
+describe "layouts/application" do
 
   it "displays the blog name" do
-    render :template => "layouts/application.html.erb"
-
+    render
     expect(rendered).to match /Spaghetti Programming/
   end
 end
