@@ -8,12 +8,12 @@ describe SessionsController, type: :controller do
     it "signs the user out" do
       session[:user_id] = 1
       post :destroy
-      session[:user_id].should == nil
+      expect(session[:user_id]).to eq(nil)
     end
     it "redirects to root_path" do
       post :destroy
-      response.code.should == "302"
-      response.should redirect_to(root_path)
+      expect(response.code).to eq("302")
+      expect(response).to redirect_to(root_path)
     end
   end
 
@@ -23,13 +23,13 @@ describe SessionsController, type: :controller do
         it "signs the user in" do
           user
           post :create, user: FactoryGirl.attributes_for(:user)
-          session[:user_id].should_not == nil
+          expect(session[:user_id]).to_not eq(nil)
         end
         it "redirects to root_path" do
           user
           post :create, user: FactoryGirl.attributes_for(:user)
-          response.code.should == "302"
-          response.should redirect_to(root_path)
+          expect(response.code).to eq("302")
+          expect(response).to redirect_to(root_path)
         end
       end
     end
@@ -37,11 +37,11 @@ describe SessionsController, type: :controller do
     context "when the user has an invalid email" do
       it "should not sign the user in" do
         post :create, user: FactoryGirl.attributes_for(:user_with_invalid_login)
-        session[:user_id].should == nil
+        expect(session[:user_id]).to eq(nil)
       end
       it "render the new view" do
         post :create, user: FactoryGirl.attributes_for(:user_with_invalid_login)
-        response.should render_template(:new)
+        expect(response).to render_template(:new)
       end
     end
   end
@@ -50,15 +50,15 @@ describe SessionsController, type: :controller do
     context "when signed out" do
       it "renders the new view" do
         get :new
-        response.should render_template('new')
+        expect(response).to render_template('new')
       end
     end
     context "when signed in" do
       it "redirects to root path" do
         session[:user_id] = user.id
         get :new
-        response.code.should == "302"
-        response.should redirect_to(root_path)
+        expect(response.code).to eq("302")
+        expect(response).to redirect_to(root_path)
       end
     end
   end
