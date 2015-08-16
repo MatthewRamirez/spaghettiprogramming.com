@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe UsersController do
+describe UsersController, type: :controller do
 
   let(:user) { FactoryGirl.create(:user) }
 
@@ -8,14 +8,14 @@ describe UsersController do
     context "when signed out" do
       it "redirects_to root_path" do
         get :edit, :id => user.id
-        response.should redirect_to(root_path)
+        expect(response).to redirect_to(root_path)
       end
     end
     context "when signed in" do
       it "should render the edit view" do
         session[:user_id] = user.id
         get :edit, :id => user.id
-        response.should render_template(:edit)
+        expect(response).to render_template(:edit)
       end
     end
   end
@@ -24,7 +24,7 @@ describe UsersController do
     context "when signed out" do
       it "redirects_to root_path" do
         put :update, :id => user.id
-        response.should redirect_to(root_path)
+        expect(response).to redirect_to(root_path)
       end
     end
     context "when signed in" do
@@ -32,7 +32,7 @@ describe UsersController do
         session[:user_id] = user.id
         put :update, :id => user.id, :user => FactoryGirl.attributes_for(:user_with_changed_email)
         user.reload
-        user.email.should eq(FactoryGirl.attributes_for(:user_with_changed_email)[:email])
+        expect(user.email).to eq(FactoryGirl.attributes_for(:user_with_changed_email)[:email])
       end
     end
 

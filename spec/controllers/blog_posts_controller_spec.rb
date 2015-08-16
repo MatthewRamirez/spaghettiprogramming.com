@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe BlogPostsController do
+describe BlogPostsController, type: :controller do
 
   let(:user) { FactoryGirl.create(:user) }
   let(:blog_post) { FactoryGirl.create(:blog_post) }
@@ -8,8 +8,8 @@ describe BlogPostsController do
   describe "GET #index" do
     it "should redirect to root_path" do
       get :index
-      response.code.should == "302"
-      response.should redirect_to(root_path)
+      expect(response.code).to eq("302")
+      expect(response).to redirect_to(root_path)
     end
   end
 
@@ -17,15 +17,15 @@ describe BlogPostsController do
     context "when signed out" do
       it "should redirect to root_path" do
         get :unpublished_index
-        response.code.should == "302"
-        response.should redirect_to(root_path)
+        expect(response.code).to eq("302")
+        expect(response).to redirect_to(root_path)
       end
     end
     context "when signed in" do
       it "should render the unpublished index" do
         session[:user_id] = user.id
         get :unpublished_index
-        response.should render_template("unpublished_index")
+        expect(response).to render_template("unpublished_index")
       end
     end
   end
@@ -36,13 +36,13 @@ describe BlogPostsController do
 
         it "assigns the requested blog_post to @blog_post" do
           get :show, :id => blog_post
-          assigns(:blog_post).should eq(blog_post)
+          expect(assigns(:blog_post)).to eq(blog_post)
         end
 
         it "redirects to blog_slug_path" do
           get :show, id: blog_post
-          response.code.should == "302"
-          response.should redirect_to(blog_slug_path(blog_post.slug))
+          expect(response.code).to eq("302")
+          expect(response).to redirect_to(blog_slug_path(blog_post.slug))
         end
       end
 
@@ -51,19 +51,19 @@ describe BlogPostsController do
         it "assigns nil to blog_post" do
           blog_post = FactoryGirl.create(:blog_post, :published => false)
           get :slug, :slug => blog_post.slug
-          assigns(:blog_post).should eq(nil)
+          expect(assigns(:blog_post)).to eq(nil)
         end
 
         it "should give 404" do
           blog_post = FactoryGirl.create(:unpublished_blog_post)
           get :show, id: blog_post.id
-          response.code.should == "404"
+          expect(response.code).to eq("404")
         end
 
         it "should render the 404 page" do
           blog_post = FactoryGirl.create(:unpublished_blog_post)
           get :show, id: blog_post.id
-          response.should render_template("error_404")
+          expect(response).to render_template("error_404")
         end
 
       end
@@ -77,12 +77,12 @@ describe BlogPostsController do
         it "assigns the requested blog_post to @blog_post" do
           blog_post = FactoryGirl.create(:blog_post)
           get :slug, :slug => blog_post.slug
-          assigns(:blog_post).should eq(blog_post)
+          expect(assigns(:blog_post)).to eq(blog_post)
         end
 
         it "renders the #show view" do
           get :slug, slug: FactoryGirl.create(:blog_post).slug
-          response.should render_template(:show)
+          expect(response).to render_template(:show)
         end
 
       end
@@ -92,19 +92,19 @@ describe BlogPostsController do
         it "assigns nil to blog_post" do
           blog_post = FactoryGirl.create(:blog_post, :published => false)
           get :slug, :slug => blog_post.slug
-          assigns(:blog_post).should eq(nil)
+          expect(assigns(:blog_post)).to eq(nil)
         end
 
         it "gives 404" do
           blog_post = FactoryGirl.create(:blog_post, :published => false)
           get :slug, :slug => blog_post.slug
-          response.code.should == "404"
+          expect(response.code).to eq("404")
         end
 
         it "renders the 404 page" do
           blog_post = FactoryGirl.create(:blog_post, :published => false)
           get :slug, :slug => blog_post.slug
-          response.should render_template("error_404")
+          expect(response).to render_template("error_404")
         end
 
       end
@@ -116,19 +116,19 @@ describe BlogPostsController do
       it "assigns a new blog_post to @blog_post" do
         session[:user_id] = user.id
         get :new
-        assigns(:blog_post).should be_an_instance_of(BlogPost)
+        expect(assigns(:blog_post)).to be_an_instance_of(BlogPost)
       end
       it "renders the :new view" do
         session[:user_id] = user.id
         get :new
-        response.should render_template(:new)
+        expect(response).to render_template(:new)
       end
     end
     context "when signed out" do
       it "should redirect to root_path" do
         get :new
-        response.code.should == "302"
-        response.should redirect_to(root_path)
+        expect(response.code).to eq("302")
+        expect(response).to redirect_to(root_path)
       end
     end
   end
@@ -147,7 +147,7 @@ describe BlogPostsController do
         it "renders the :new view" do
           session[:user_id] = user.id
           post :create, blog_post: FactoryGirl.attributes_for(:invalid_blog_post)
-          response.should render_template :new
+          expect(response).to render_template :new
         end
       end
 
@@ -169,15 +169,15 @@ describe BlogPostsController do
         it "redirects to the root path" do
           session[:user_id] = user.id
           post :create, blog_post: FactoryGirl.attributes_for(:blog_post)
-          response.should redirect_to root_path
+          expect(response).to redirect_to root_path
         end
       end
     end
     context "when signed out" do
       it "should redirect to root_path" do
         post :create
-        response.code.should == "302"
-        response.should redirect_to(root_path)
+        expect(response.code).to eq("302")
+        expect(response).to redirect_to(root_path)
       end
     end
   end
@@ -186,13 +186,13 @@ describe BlogPostsController do
     context "when an archive month has posts" do
       it "renders the index template" do
         get :archive, id: "#{blog_post.created_at_year.to_s + blog_post.created_at_month.to_s}"
-        response.should render_template('index')
+        expect(response).to render_template('index')
       end
     end
     context "when an archive month is empty" do
       it "renders the empty archive template" do
         get :archive, id: 000000
-        response.should render_template('no_posts_in_archive')
+        expect(response).to render_template('no_posts_in_archive')
       end
     end
   end

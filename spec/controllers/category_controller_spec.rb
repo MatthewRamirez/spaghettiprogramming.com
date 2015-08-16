@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe CategoriesController do
+describe CategoriesController, type: :controller do
 
   let(:user) { FactoryGirl.create(:user) }
   let(:category) { FactoryGirl.create(:category) }
@@ -10,21 +10,21 @@ describe CategoriesController do
       it "gets a list of categories" do
         session[:user_id] = user.id
         get :index
-        assigns(:categories).should eq(Category.all)
+        expect(assigns(:categories)).to eq(Category.all)
       end
 
       it "returns 200" do
         session[:user_id] = user.id
         get :index
-        response.code.should == "200"
+        expect(response.code).to eq("200")
       end
     end
 
     context "when signed out" do
       it "redirects to root_path" do
         get :index
-        response.code.should == "302"
-        response.should redirect_to(root_path)
+        expect(response.code).to eq("302")
+        expect(response).to redirect_to(root_path)
       end
     end
   end
@@ -32,7 +32,7 @@ describe CategoriesController do
   describe "GET #show" do
     it "assigns the requested category to @category" do
       get :show, :id => category
-      assigns(:category).should eq(category)
+      expect(assigns(:category)).to eq(category)
     end
   end
 
@@ -41,19 +41,19 @@ describe CategoriesController do
       it "assigns a new category to @category" do
         session[:user_id] = user.id
         get :new
-        assigns(:category).should be_an_instance_of(Category)
+        expect(assigns(:category)).to be_an_instance_of(Category)
       end
       it "renders the :new view" do
         session[:user_id] = user.id
         get :new
-        response.should render_template(:new)
+        expect(response).to render_template(:new)
       end
     end
     context "when signed out" do
       it "redirects to root_path" do
         get :new
-        response.code.should == "302"
-        response.should redirect_to(root_path)
+        expect(response.code).to eq("302")
+        expect(response).to redirect_to(root_path)
       end
     end
   end
@@ -63,19 +63,19 @@ describe CategoriesController do
       it "assigns the selected category to @category" do
         session[:user_id] = user.id
         get :edit, :id => category
-        assigns(:category).should eq(category)
+        expect(assigns(:category)).to eq(category)
       end
       it "renders the :edit view" do
         session[:user_id] = user.id
         get :edit, :id => category
-        response.should render_template(:edit)
+        expect(response).to render_template(:edit)
       end
     end
     context "when signed out" do
       it "redirects to root_path" do
         get :edit, :id => category
-        response.code.should == "302"
-        response.should redirect_to(root_path)
+        expect(response.code).to eq("302")
+        expect(response).to redirect_to(root_path)
       end
     end
   end
@@ -93,7 +93,7 @@ describe CategoriesController do
         it "renders the :new view" do
           session[:user_id] = user.id
           post :create, category: FactoryGirl.attributes_for(:category, :name => nil)
-          response.should render_template :new
+          expect(response).to render_template(:new)
         end
       end
 
@@ -108,15 +108,15 @@ describe CategoriesController do
         it "redirects to the categories path" do
           session[:user_id] = user.id
           post :create, category: FactoryGirl.attributes_for(:category)
-          response.should redirect_to categories_path
+          expect(response).to redirect_to(categories_path)
         end
       end
     end
     context "when signed out" do
       it "should redirect to root_path" do
         post :create
-        response.code.should == "302"
-        response.should redirect_to(root_path)
+        expect(response.code).to eq("302")
+        expect(response).to redirect_to(root_path)
       end
     end
   end
@@ -127,19 +127,19 @@ describe CategoriesController do
         session[:user_id] = user.id
         put :update, :id => category.id, :category => {:name => 'newname'}
         category.reload
-        category.name.should eq('newname')
+        expect(category.name).to eq('newname')
       end
       it "redirects to the categories path" do
         session[:user_id] = user.id
         put :update, :id => category.id, :category => {:name => 'newname'}
-        response.should redirect_to categories_path
+        expect(response).to redirect_to(categories_path)
       end
     end
     context "when signed out" do
       it "should redirect to root_path" do
         post :update, :id => category.id
-        response.code.should == "302"
-        response.should redirect_to(root_path)
+        expect(response.code).to eq("302")
+        expect(response).to redirect_to(root_path)
       end
     end
   end

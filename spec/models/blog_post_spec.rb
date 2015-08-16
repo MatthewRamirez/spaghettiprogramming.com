@@ -1,60 +1,65 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe BlogPost do
   it "has a valid factory" do
-    FactoryGirl.create(:blog_post).should be_valid
+    expect(FactoryGirl.create(:blog_post)).to be_valid
   end
 
   it "has a slug if none given" do
-    FactoryGirl.build(:blog_post, :slug => nil).should be_valid
+    expect(FactoryGirl.build(:blog_post, :slug => nil)).to be_valid
   end
 
   it "is invalid without a title" do
-    FactoryGirl.build(:blog_post, :title => nil).should_not be_valid
+    expect(FactoryGirl.build(:blog_post, :title => nil)).to_not be_valid
   end
 
   it "is invalid without a body" do
-    FactoryGirl.build(:blog_post, :body => nil).should_not be_valid
+    expect(FactoryGirl.build(:blog_post, :body => nil)).to_not be_valid
   end
 
   it "does not allow duplicate titles" do
     FactoryGirl.create(:blog_post, :title => 'Dupe', :slug => 'Dupe')
-    FactoryGirl.build(:blog_post, :title => 'Dupe', :slug => 'Not a dupe').should_not be_valid
+    expect(FactoryGirl.build(:blog_post, :title => 'Dupe', :slug => 'Not a dupe')).to_not be_valid
   end
 
   it "does not allow duplicate slugs" do
     FactoryGirl.create(:blog_post, :slug => 'Dupe', :title => 'Dupe')
-    FactoryGirl.build(:blog_post, :slug => 'Dupe', :title => 'Not a dupe').should_not be_valid
+    expect(FactoryGirl.build(:blog_post, :slug => 'Dupe', :title => 'Not a dupe')).to_not be_valid
   end
 
   it "can be instantiated" do
-    FactoryGirl.build(:blog_post).should be_an_instance_of(BlogPost)
+    expect(FactoryGirl.build(:blog_post)).to be_an_instance_of(BlogPost)
   end
 
   it "can be saved successfully" do
-    FactoryGirl.create(:blog_post).should be_persisted
+    expect(FactoryGirl.create(:blog_post)).to be_persisted
   end
 
   context "when created_at is nil" do
     it "sets created_at_month to current month" do
       blog_post = FactoryGirl.create(:blog_post)
-      blog_post.created_at_month.should == Time.now.month
+      expect(blog_post.created_at_month).to eq(Time.now.month)
     end
     it "sets created_at_year to current year" do
       blog_post = FactoryGirl.create(:blog_post)
-      blog_post.created_at_year.should == Time.now.year
+      expect(blog_post.created_at_year).to eq(Time.now.year)
     end
   end
 
   context "when created_at is not nil" do
     it "sets created_at month to created_at.month" do
       blog_post = FactoryGirl.create(:blog_post, :created_at => (Time.now - 18.months))
-      blog_post.created_at_month.should == blog_post.created_at.month
+      expect(blog_post.created_at_month).to eq(blog_post.created_at.month)
     end
     it "sets created_at year to created_at.year" do
       blog_post = FactoryGirl.create(:blog_post, :created_at => (Time.now - 18.months))
-      blog_post.created_at_year.should == blog_post.created_at.year
+      expect(blog_post.created_at_year).to eq(blog_post.created_at.year)
     end
+  end
+
+  it "renders content when saved" do
+    blog_post = FactoryGirl.create(:blog_post, :rendered_content => nil)
+    expect(blog_post.rendered_content).to_not eq(nil)
   end
 
 end
