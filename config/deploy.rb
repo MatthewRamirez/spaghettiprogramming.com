@@ -7,7 +7,7 @@ set :deploy_user, 'deploy'
 set :scm, :git
 set :repo_url, 'git@github.com:MatthewRamirez/spaghettiprogramming.com.git'
 
-set :chruby_ruby, 'ruby-2.1.2'
+set :chruby_ruby, 'ruby-2.2.2'
 
 set :keep_releases, 5
 
