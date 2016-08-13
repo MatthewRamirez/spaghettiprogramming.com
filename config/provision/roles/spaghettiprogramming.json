@@ -1,0 +1,11 @@
+{
+  "name": "spaghettiprogramming",
+  "json_class": "Chef::Role",
+  "chef_type": "role",
+  "description": "Configures spaghettiprogramming web application server",
+  "override_attributes": {},
+  "run_list": [
+    "recipe[web_server]"
+  ]
+}
+

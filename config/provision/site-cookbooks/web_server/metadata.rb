@@ -1,0 +1,13 @@
+name             'web_server'
+maintainer       'Spaghetti Programming'
+maintainer_email 'matt@spaghettiprogramming.com'
+license          ''
+description      'Installs/Configures web server'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version          '0.1.0'
+depends          'iptables-ng'
+depends          'sudo'
+depends          'nginx'
+depends          'logrotate'
+depends          'postgresql_lwrp'
+depends          'iptables-ng'
