@@ -5,8 +5,8 @@
     action :install
   end
 end
-
-users = %w{ deploy }
+app_user = 'deploy'
+users = %w{ app_user }
 users.each do |user_id|
 
   home_dir = "/home/#{user_id}"
@@ -149,3 +149,77 @@ iptables_ng_rule '13-output-ip6' do
   action :create_if_missing
   ip_version 6
 end
+
+app_root = '/var/www/spaghettiprogramming'
+app_name = 'spaghettiprogramming'
+
+directory app_root do
+  owner app_user
+  group app_user
+  recursive true
+  mode '0755'
+end
+
+directory "#{app_root}/shared" do
+  owner app_user
+  group app_user
+  mode '0755'
+end
+
+%w( config log tmp sockets pids ).each do |dir|
+  directory "#{app_root}/shared/#{dir}" do
+    owner app_user
+    group app_user
+    mode '0755'
+  end
+end
+
+database_name = node['web_server']['database']['name']
+database_user = node['web_server']['database']['user']
+database_password = Chef::EncryptedDataBagItem.load("web_server", "database")['password']
+template "#{app_root}/shared/config/database.yml" do
+  mode '0640'
+  owner app_user
+  group app_user
+  source "database.yml.erb"
+  variables({
+    database: database_name,
+    username: database_user,
+    password: database_password
+  })
+end
+
+secret_key = Chef::EncryptedDataBagItem.load("web_server", "secrets")['secret_key']
+template "#{app_root}/shared/config/secrets.yml" do
+  mode '0640'
+  owner app_user
+  group app_user
+  source "secrets.yml.erb"
+  variables({
+    secret_key: secret_key
+  })
+end
+
+paperclip_secret = Chef::EncryptedDataBagItem.load("web_server", "application_config")['paperclip_secret']
+template "#{app_root}/shared/config/application_config.yml" do
+  mode '0640'
+  owner app_user
+  group app_user
+  source "application_config.yml.erb"
+  variables({
+    paperclip_secret: paperclip_secret
+  })
+end
+
+#apt_repository 'nginx-ppa' do
+#  uri 'http://ppa.launchpad.net/nginx/stable/ubuntu'
+#  distribution node['lsb']['codename']
+#  components ['main']
+#  keyserver "keyserver.ubuntu.com"
+#  key 'C300EE8C'
+#end
+#
+#include_recipe 'nginx'
+#
+#nginx_config_path = "/etc/nginx/sites-available/#{v[:name]}"
+

@@ -14,7 +14,7 @@ postgresql_user database_user do
   unencrypted_password database_password
 end
 
-postgresql_database 'openvpn_production' do
+postgresql_database 'spaghettiprogramming_production' do
   in_cluster 'main'
   in_version database_version
   name database_name
