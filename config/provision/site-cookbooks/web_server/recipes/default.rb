@@ -6,6 +6,9 @@
   end
 end
 app_user = 'deploy'
+app_root = '/var/www/spaghettiprogramming'
+app_name = 'spaghettiprogramming'
+
 users = %w{ app_user }
 users.each do |user_id|
 
@@ -150,9 +153,6 @@ iptables_ng_rule '13-output-ip6' do
   ip_version 6
 end
 
-app_root = '/var/www/spaghettiprogramming'
-app_name = 'spaghettiprogramming'
-
 directory app_root do
   owner app_user
   group app_user
@@ -211,15 +211,29 @@ template "#{app_root}/shared/config/application_config.yml" do
   })
 end
 
-#apt_repository 'nginx-ppa' do
-#  uri 'http://ppa.launchpad.net/nginx/stable/ubuntu'
-#  distribution node['lsb']['codename']
-#  components ['main']
-#  keyserver "keyserver.ubuntu.com"
-#  key 'C300EE8C'
-#end
-#
-#include_recipe 'nginx'
-#
-#nginx_config_path = "/etc/nginx/sites-available/#{v[:name]}"
+apt_repository 'nginx-ppa' do
+  uri 'http://ppa.launchpad.net/nginx/stable/ubuntu'
+  distribution node['lsb']['codename']
+  components ['main']
+  keyserver "keyserver.ubuntu.com"
+  key 'C300EE8C'
+end
 
+include_recipe 'nginx'
+
+nginx_config_path = "/etc/nginx/sites-available/#{app_name}"
+template nginx_config_path do
+  mode 0644
+  source "nginx.conf.erb"
+  variables({})
+  notifies :reload, "service[nginx]"
+end
+
+nginx_site app_name do
+  config_path nginx_config_path
+  enable true
+end
+
+nginx_site :default do
+  enable false
+end
