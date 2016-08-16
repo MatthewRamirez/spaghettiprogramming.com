@@ -107,6 +107,7 @@ DEPENDENCIES
   chruby_install (>= 0)
   git (>= 0)
   hostnames (>= 0)
+  hostnames (>= 0)
   iptables-ng (>= 0)
   java (>= 0)
   logrotate (~> 1.9)

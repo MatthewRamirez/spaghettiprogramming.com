@@ -4,6 +4,7 @@
   "chef_type": "role",
   "description": "Configures spaghettiprogramming web application server",
   "override_attributes": {
+    "set_fqdn": "spaghettiprogramming.spaghettiprogramming.com",
     "postgresql": {
       "version": "9.3",
       "client": {
@@ -43,6 +44,7 @@
     }
   },
   "run_list": [
+    "recipe[hostnames]",
     "recipe[web_server]",
     "recipe[postgresql]",
     "recipe[postgresql::server]",
