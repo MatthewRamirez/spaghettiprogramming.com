@@ -153,6 +153,9 @@ iptables_ng_rule '13-output-ip6' do
   ip_version 6
 end
 
+include_recipe "chruby_install"
+include_recipe "ruby-install::install"
+
 directory app_root do
   owner app_user
   group app_user
@@ -209,6 +212,17 @@ template "#{app_root}/shared/config/application_config.yml" do
   variables({
     paperclip_secret: paperclip_secret
   })
+end
+
+puma_config app_name do
+  owner app_user
+  directory app_root
+  upstart true
+  monit false
+  logrotate true # the default
+  thread_min 0
+  thread_max 16
+  workers 2
 end
 
 apt_repository 'nginx-ppa' do

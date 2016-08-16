@@ -24,6 +24,22 @@
         "name": "spaghettiprogramming_production",
         "version": "9.3"
       }
+    },
+    "ruby-install": {
+      "rubies": [{
+        "ruby": "ruby 2.2.2",
+        "gems": [
+          {"name": "bundler"}
+        ]
+      }]
+    },
+    "chruby_install": {
+      "default_ruby": "2.2.2",
+      "auto": false
+    },
+    "puma": {
+      "bundler_version": "1.10.6",
+      "rubygems_location": "/opt/rubies/ruby-2.2.2/bin/gem"
     }
   },
   "run_list": [
