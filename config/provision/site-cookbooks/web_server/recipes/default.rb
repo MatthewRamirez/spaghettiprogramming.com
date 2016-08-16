@@ -9,7 +9,7 @@ app_user = 'deploy'
 app_root = '/var/www/spaghettiprogramming'
 app_name = 'spaghettiprogramming'
 
-users = %w{ app_user }
+users = [app_user]
 users.each do |user_id|
 
   home_dir = "/home/#{user_id}"
