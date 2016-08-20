@@ -225,6 +225,22 @@ puma_config app_name do
   workers 2
 end
 
+# Puma init
+template "/etc/init/puma.conf" do
+  source "puma.conf.erb"
+  owner "root"
+  group "root"
+  variables({ user: app_user, group: app_user })
+end
+
+template "/etc/init/puma-manager.conf" do
+  source "puma-manager.conf.erb"
+  owner "root"
+  group "root"
+  variables({ puma_conf: "#{app_root}/shared/puma/#{app_name}.config" })
+end
+
+
 apt_repository 'nginx-ppa' do
   uri 'http://ppa.launchpad.net/nginx/stable/ubuntu'
   distribution node['lsb']['codename']
