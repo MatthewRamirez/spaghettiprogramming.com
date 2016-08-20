@@ -1,7 +1,7 @@
-# config valid only for Capistrano 3.1
-lock '3.1.0'
+# config valid only for Capistrano 3.4
+lock '3.4.0'
 
-set :application, 'spaghettiprogramming.com'
+set :application, 'spaghettiprogramming'
 set :deploy_user, 'deploy'
 
 set :scm, :git
@@ -11,7 +11,7 @@ set :chruby_ruby, 'ruby-2.2.2'
 
 set :keep_releases, 5
 
-set :config_files, %w{/home/deploy/deployment_files/spaghettiprogramming.com/database.yml /home/deploy/deployment_files/spaghettiprogramming.com/application_config.yml}
+set :config_files, %w{}
 set :linked_files, %w{config/database.yml config/application_config.yml}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
