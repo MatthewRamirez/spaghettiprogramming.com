@@ -16,6 +16,7 @@
 # extended properties on the server.
 #server 'spaghettiprogramming.com', user: 'deploy', roles: %w{web app db}, primary: true
 set :domain, 'spaghettiprogramming-server'
+set :ssh_options, { port: 22 }
 server fetch(:domain), user: 'deploy', roles: %w{web app db}
 
 

@@ -17,7 +17,8 @@
 #server 'spaghettiprogramming.com', user: 'deploy', roles: %w{web app db}, primary: true
 set :branch, 'provision'
 set :domain, 'spaghettiprogramming-server'
-server fetch(:domain), user: 'deploy', roles: %w{web app db}, port: 2222
+set :ssh_options, { port: 2222 }
+server fetch(:domain), user: 'deploy', roles: %w{web app db}
 
 
 #set :stage, :production
