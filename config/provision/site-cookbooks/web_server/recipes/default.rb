@@ -250,6 +250,18 @@ apt_repository 'nginx-ppa' do
   key 'C300EE8C'
 end
 
+dhparam_path = '/etc/ssl/spaghettiprogramming'
+directory dhparam_path do
+  mode "0700"
+  group "root"
+  owner "root"
+end
+
+execute "generate_strong_dh_params" do
+  command "cd #{dhparam_path} && openssl dhparam -out dhparam.pem 4096"
+  not_if { File.exist?("#{dhparam_path}/dhparam.pem") }
+end
+
 include_recipe 'nginx'
 
 nginx_config_path = "/etc/nginx/sites-available/#{app_name}"
