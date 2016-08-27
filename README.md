@@ -16,9 +16,9 @@ The spaghettiprogramming.com blog has some useful features:
 
 ## Dependencies and Versions
 
-* Ruby 2.1.2
-* Rails 4.1.1
-* PostgreSQL 9.1.13
+* Ruby 2.2.2
+* Rails 4.2.3
+* PostgreSQL 9.x
 
 ## Test Suite
 
@@ -37,47 +37,42 @@ Certain config files are not in this git repository and you must make your own:
 
 * config/database.yml
 * config/application_config.yml
+* config/secrets.yml
 
-#### database.yml
-    development:
-      adapter: postgresql
-      encoding: utf8
-      database: development_database
-      port: 5432
-      pool: 5
-      timeout: 5000
+These files are managed through chef.  See `config/provision`
 
-    test:
-      adapter: postgresql
-      encoding: utf8
-      database: test_database
-      port: 5432
-      pool: 5
-      timeout: 5000
+## Deployment instructions
 
-    production:
-      adapter: postgresql
-      encoding: utf8
-      database: production_database
-      username: username
-      password: password
-      port: 5432
-      pool: 5
-      timeout: 5000
+### Provision a Server ###
 
-#### application_config.yml
+*One-time setup*
 
-    development:
-      GA_ACCOUNT: google analytics property account number
-      SECRET_TOKEN: development_secret_token_for_session
-      PAPERCLIP_HASH_SECRET: development_secret_token_for_paperclip_obfuscation
+In `/etc/hosts` on your development machine add the line similar to:
 
-    test:
-      GA_ACCOUNT: google analytics property account number
-      SECRET_TOKEN: test_secret_token_for_session
-      PAPERCLIP_HASH_SECRET: test_secret_token_for_paperclip_obfuscation
+`192.168.1.20 spaghettiprogramming-server`
 
-    production:
-      GA_ACCOUNT: google analytics property account number
-      SECRET_TOKEN: production_secret_token_for_session
-      PAPERCLIP_HASH_SECRET: production_secret_token_for_paperclip_obfuscation
+Ensure to change the values if needed.
+
+Add your public key to root's authorized keys on the production support server.
+
+```bash
+cd config/provision
+librarian-chef install
+knife solo prepare root@spaghettiprogramming-server
+```
+
+*After cookbook updates*
+
+```bash
+cd config/provision
+knife solo cook root@spaghettiprogramming-server
+```
+
+This will run the role called `spaghettiprogramming` to provision the server.
+
+### Deploy the Application ###
+
+```bash
+cap production deploy
+```
+
