@@ -4,7 +4,7 @@ upstream <%= @name %> {
 
 server {
  
-  listen 443;
+  listen 443 default ssl;
   server_name <%= @server_names %>;
 
   ssl_certificate <%= @ssl_certificate %>;
