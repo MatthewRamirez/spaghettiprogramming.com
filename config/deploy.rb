@@ -12,8 +12,8 @@ set :chruby_ruby, 'ruby-2.2.2'
 set :keep_releases, 5
 
 set :config_files, %w{}
-set :linked_files, %w{config/database.yml config/application_config.yml}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_files, %w{config/database.yml config/application_config.yml config/secrets.yml}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system puma}
 
 set :tests, []
 
