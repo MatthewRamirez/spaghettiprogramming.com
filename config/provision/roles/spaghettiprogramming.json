@@ -1,0 +1,54 @@
+{
+  "name": "spaghettiprogramming",
+  "json_class": "Chef::Role",
+  "chef_type": "role",
+  "description": "Configures spaghettiprogramming web application server",
+  "override_attributes": {
+    "set_fqdn": "spaghettiprogramming.spaghettiprogramming.com",
+    "postgresql": {
+      "version": "9.3",
+      "client": {
+        "version": "9.3"
+      },
+      "pg_hba": [
+        {"type": "local", "db": "all", "user": "postgres", "addr": null, "method": "ident"},
+        {"type": "local", "db": "all", "user": "all", "addr": null, "method": "ident"},
+        {"type": "host", "db": "all", "user": "all", "addr": "127.0.0.1/32", "method": "md5"}
+      ],
+      "password": {
+        "postgres": "md53175bce1d3201d16594cebf9d7eb3f9d"
+      }
+    },
+    "web_server": {
+      "database": {
+        "user": "spaghettiprogramming",
+        "name": "spaghettiprogramming_production",
+        "version": "9.3"
+      }
+    },
+    "ruby-install": {
+      "rubies": [{
+        "ruby": "ruby 2.2.2",
+        "gems": [
+          {"name": "bundler"}
+        ]
+      }]
+    },
+    "chruby_install": {
+      "default_ruby": "2.2.2",
+      "auto": false
+    },
+    "puma": {
+      "bundler_version": "1.10.6",
+      "rubygems_location": "/opt/rubies/ruby-2.2.2/bin/gem"
+    }
+  },
+  "run_list": [
+    "recipe[hostnames]",
+    "recipe[web_server]",
+    "recipe[postgresql]",
+    "recipe[postgresql::server]",
+    "recipe[web_server::database]"
+  ]
+}
+

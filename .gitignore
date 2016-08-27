@@ -1,2 +1,4 @@
 public/images/blog_images
 public/system
+config/provision/tmp
+config/provision/cookbooks

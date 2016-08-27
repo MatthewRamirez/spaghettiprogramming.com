@@ -139,6 +139,8 @@ GEM
       cocaine (~> 0.5.3)
       mime-types
     pg (0.18.2)
+    puma (2.11.1)
+      rack (>= 1.1, < 2.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -233,6 +235,7 @@ DEPENDENCIES
   less-rails
   paperclip (~> 3.0)
   pg
+  puma
   rack
   rails (= 4.2.3)
   redcarpet
@@ -242,3 +245,6 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   validates_email_format_of
   will_paginate
+
+BUNDLED WITH
+   1.10.6

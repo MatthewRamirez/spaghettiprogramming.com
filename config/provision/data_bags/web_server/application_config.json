@@ -1,0 +1,9 @@
+{
+  "id": "application_config",
+  "paperclip_secret": {
+    "encrypted_data": "ryU5VDzbbvfuUfJ9kr1QcPvPAAAqTxodpNotKKmj/KK1P5UD6SS9mDqqT7cE\n60oyUhNjMQf/RCNkTq24OBCnU/IElCgRi8rEQS2KFJ4Poqs+7QwFZVmJcKmQ\n5v/Axi667/1zaq44eB5v20ST7i2OOA31uAvG7peXzUFQ8XcftxFyNYqxe+vP\nB9VXb1nE2fgFpxsCyzmytT53gPinbwGVpw==\n",
+    "iv": "4Ege8n5mJb0D7+X58lbPRw==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}

@@ -16,6 +16,7 @@ gem 'activerecord-session_store'
 gem 'twitter-bootstrap-rails',
   :git => 'https://github.com/seyhunak/twitter-bootstrap-rails.git',
   :branch => 'bootstrap3'
+gem 'puma'
 
 # Gems used only for assets and not required
 # in production environments by default.
