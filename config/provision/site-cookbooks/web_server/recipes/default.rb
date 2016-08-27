@@ -250,28 +250,50 @@ apt_repository 'nginx-ppa' do
   key 'C300EE8C'
 end
 
-dhparam_path = '/etc/ssl/spaghettiprogramming'
-directory dhparam_path do
+include_recipe 'nginx'
+
+ssl_path = '/etc/ssl/spaghettiprogramming'
+directory ssl_path do
   mode "0700"
   group "root"
   owner "root"
 end
 
-execute "generate_strong_dh_params" do
-  command "cd #{dhparam_path} && openssl dhparam -out dhparam.pem 4096"
-  not_if { File.exist?("#{dhparam_path}/dhparam.pem") }
+nginx_params = {
+  app_root: app_root,
+  name: app_name,
+  server_names: "spaghettiprogramming.com www.spaghettiprogramming.com spaghettiprogramming-server",
+  ssl_certificate: "#{ssl_path}/spaghettiprogramming.crt",
+  ssl_certificate_key: "#{ssl_path}/spaghettiprogramming.key",
+  ssl_dhparam: "#{ssl_path}/spaghettiprogramming.dhparam.pem"
+}
+
+ssl_certificate = Chef::EncryptedDataBagItem.load("web_server", "ssl")['cert']
+file nginx_params[:ssl_certificate] do
+  mode "0600"
+  owner "root"
+  group "root"
+  content ssl_certificate
 end
 
-include_recipe 'nginx'
+ssl_certificate_key = Chef::EncryptedDataBagItem.load("web_server", "ssl")['key']
+file nginx_params[:ssl_certificate_key] do
+  mode "0600"
+  owner "root"
+  group "root"
+  content ssl_certificate_key
+end
+
+execute "generate_strong_dh_params" do
+  command "openssl dhparam -out #{nginx_params[:ssl_dhparam]} 4096"
+  not_if { File.exist?(nginx_params[:ssl_dhparam]) }
+end
 
 nginx_config_path = "/etc/nginx/sites-available/#{app_name}"
 template nginx_config_path do
   mode 0644
   source "nginx.conf.erb"
-  variables({
-    app_root: app_root,
-    name: app_name,
-    server_names: "spaghettiprogramming.com www.spaghettiprogramming.com spaghettiprogramming-server"  })
+  variables nginx_params
   notifies :reload, "service[nginx]"
 end
 
