@@ -226,20 +226,21 @@ puma_config app_name do
 end
 
 # Puma init
-template "/etc/init/puma.conf" do
-  source "puma.conf.erb"
+template "/lib/systemd/system/puma.service" do
+  mode "0644"
   owner "root"
   group "root"
-  variables({ user: app_user, group: app_user })
+  source "puma.service.erb"
+  variables({
+    user: app_user,
+    app_root: app_root,
+    puma_config: "#{app_root}/current/puma/#{app_name}.config"
+  })
 end
 
-template "/etc/init/puma-manager.conf" do
-  source "puma-manager.conf.erb"
-  owner "root"
-  group "root"
-  variables({ puma_conf: "#{app_root}/shared/puma/#{app_name}.config" })
+service "puma" do
+  action [:enable, :start]
 end
-
 
 apt_repository 'nginx-ppa' do
   uri 'http://ppa.launchpad.net/nginx/stable/ubuntu'
@@ -255,7 +256,10 @@ nginx_config_path = "/etc/nginx/sites-available/#{app_name}"
 template nginx_config_path do
   mode 0644
   source "nginx.conf.erb"
-  variables({})
+  variables({
+    app_root: app_root,
+    name: app_name,
+    server_names: "spaghettiprogramming.com www.spaghettiprogramming.com spaghettiprogramming-server"  })
   notifies :reload, "service[nginx]"
 end
 
