@@ -48,7 +48,8 @@
     "recipe[web_server]",
     "recipe[postgresql]",
     "recipe[postgresql::server]",
-    "recipe[web_server::database]"
+    "recipe[web_server::database]",
+    "recipe[web_server::backup]"
   ]
 }
 
