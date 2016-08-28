@@ -76,3 +76,6 @@ This will run the role called `spaghettiprogramming` to provision the server.
 cap production deploy
 ```
 
+## Backups
+
+The application database and files uploaded via paperclip are backed up in `/var/backups/spaghettiprogramming`.
