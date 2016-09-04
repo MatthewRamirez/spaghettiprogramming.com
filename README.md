@@ -53,7 +53,7 @@ In `/etc/hosts` on your development machine add the line similar to:
 
 Ensure to change the values if needed.
 
-Add your public key to root's authorized keys on the production support server.
+Add your public key to root's authorized keys on the server.
 
 ```bash
 cd config/provision
