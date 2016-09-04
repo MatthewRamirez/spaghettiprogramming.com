@@ -63,4 +63,9 @@ server {
   location = /400.html {
     root  <%= @app_root %>/current/public;
   }
+
+  location /compression_calculator {
+    return 301 http://compression-calculator.spaghettiprogramming.com;
+  }
+
 }
