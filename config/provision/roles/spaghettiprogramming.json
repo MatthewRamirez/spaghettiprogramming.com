@@ -41,6 +41,9 @@
     "puma": {
       "bundler_version": "1.10.6",
       "rubygems_location": "/opt/rubies/ruby-2.2.2/bin/gem"
+    },
+    "nginx": {
+      "pid": "/run/nginx.pid"
     }
   },
   "run_list": [
