@@ -4,7 +4,7 @@
   "chef_type": "role",
   "description": "Configures spaghettiprogramming web application server",
   "override_attributes": {
-    "set_fqdn": "spaghettiprogramming.spaghettiprogramming.com",
+    "set_fqdn": "www.spaghettiprogramming.com",
     "postgresql": {
       "version": "9.5",
       "dir": "/etc/postgresql/9.5/main",
