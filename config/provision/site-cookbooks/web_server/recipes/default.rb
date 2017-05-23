@@ -302,6 +302,17 @@ nginx_site app_name do
   enable true
 end
 
+template "/etc/nginx/sites-available/nginx-server-status.conf" do
+  mode 0644
+  source "nginx-server-status.conf.erb"
+  notifies :reload, "service[nginx]"
+end
+
+nginx_site "nginx-server-status.conf" do
+  config_path "/etc/nginx/sites-available/nginx-server-status.conf"
+  enable true
+end
+
 nginx_site :default do
   enable false
 end
