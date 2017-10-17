@@ -1,9 +1,10 @@
 {
   "id": "application_config",
   "paperclip_secret": {
-    "encrypted_data": "ryU5VDzbbvfuUfJ9kr1QcPvPAAAqTxodpNotKKmj/KK1P5UD6SS9mDqqT7cE\n60oyUhNjMQf/RCNkTq24OBCnU/IElCgRi8rEQS2KFJ4Poqs+7QwFZVmJcKmQ\n5v/Axi667/1zaq44eB5v20ST7i2OOA31uAvG7peXzUFQ8XcftxFyNYqxe+vP\nB9VXb1nE2fgFpxsCyzmytT53gPinbwGVpw==\n",
-    "iv": "4Ege8n5mJb0D7+X58lbPRw==\n",
-    "version": 1,
-    "cipher": "aes-256-cbc"
+    "encrypted_data": "ffKCrKjEw7xrpMyG/UZQ3gQi7mJ06Cv7NdOE5RgbkjurnsG6aDgN6QhX2nbR\nYG3wUjMInZeB0f1mhGbw9Ec3DgE6hvAcJnVx7nDf4K8iBNIXSA3iaADzm6J1\n5U05QaKLW3x/IufBwlSnMrzcQRxsTI2GYOS4tXnu7hGOslhg1sZRqTHF4wR9\nFPoaVUL+xzc1XGoo\n",
+    "iv": "IBBYl641L079GRxd\n",
+    "auth_tag": "ZEXDvYZA4P2Zz/5Mj60qyw==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
   }
 }
