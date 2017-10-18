@@ -35,17 +35,13 @@
         "version": "9.5"
       }
     },
-    "ruby-install": {
-      "rubies": [{
-        "ruby": "ruby 2.2.2",
-        "gems": [
-          {"name": "bundler"}
-        ]
-      }]
-    },
-    "chruby_install": {
-      "default_ruby": "2.2.2",
-      "auto": false
+    "chruby": {
+      "rubies": {
+        "1.9.3-p392": false,
+        "2.4.1": false,
+        "2.4.2": true
+      },
+      "default": "2.4.2"
     },
     "puma": {
       "bundler_version": "1.10.6",
@@ -57,10 +53,14 @@
   },
   "run_list": [
     "recipe[hostnames]",
+    "recipe[apt]",
+    "recipe[apt::unattended-upgrades]",
+    "recipe[build-essential]",
+    "recipe[chruby::system]",
+    "recipe[chruby]",
     "recipe[web_server]",
     "recipe[postgresql]",
     "recipe[postgresql::server]",
-    "recipe[web_server::database]",
     "recipe[web_server::backup]"
   ]
 }

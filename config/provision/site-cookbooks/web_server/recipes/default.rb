@@ -1,10 +1,17 @@
 # Default recipe for web server
 
+%w(apache apache2).each do |name|
+  package name do
+    action :remove
+  end
+end
+
 %w(git-core curl build-essential python-software-properties zlibc zlib1g-dev libreadline-dev libssl-dev libcurl4-openssl-dev emacs libxml2 libxml2-dev libxslt1.1 libxslt1-dev libyaml-dev libzmq1 libzmq-dev).each do |name|
   package name do
     action :install
   end
 end
+
 app_user = 'deploy'
 app_root = '/var/www/spaghettiprogramming'
 app_name = 'spaghettiprogramming'
@@ -19,7 +26,6 @@ users.each do |user_id|
   user user_id do
     shell '/bin/bash'
     group user_id
-    supports :manage_home => true
     home home_dir
   end
 
@@ -47,7 +53,7 @@ users.each do |user_id|
     group user_id
     mode '0600'
     variables :keys => [
-      "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAsMWzguQmDktGgheWQ7LYfAx+yUkZD1XgTqXPR/y0ypLIAlggRY4hl1Xd5z89mnt27xNRTXEk1cQ3WzQ46zsKtpdpDpcm1D14eggfTug/rlUM56TeQc4R6Hait3mP4fmQZ+VhNKrAmZGyuul7sKHXeZtvLumRjeyf/EY1O7b8LIrUl9IUHn3qU1NG6UHJshsISApjwm/dlBbXLDJn57nTr1EBM1tAvGWK+G1Nzhbk9v+WWjZoGgFVwCS06FuW7uz/AJ+KAkhbtSQVJomYfbxK+nVonNk4oR0EeCjqE9ygOTh6qtLBIZ1nU6yAEJGnAh5xdsZxpi6UaOnwrRYj0j5vbQ== matt@workstation"
+      "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAsMWzguQmDktGgheWQ7LYfAx+yUkZD1XgTqXPR/y0ypLIAlggRY4hl1Xd5z89mnt27xNRTXEk1cQ3WzQ46zsKtpdpDpcm1D14eggfTug/rlUM56TeQc4R6Hait3mP4fmQZ+VhNKrAmZGyuul7sKHXeZtvLumRjeyf/EY1O7b8LIrUl9IUHn3qU1NG6UHJshsISApjwm/dlBbXLDJn57nTr1EBM1tAvGWK+G1Nzhbk9v+WWjZoGgFVwCS06FuW7uz/AJ+KAkhbtSQVJomYfbxK+nVonNk4oR0EeCjqE9ygOTh6qtLBIZ1nU6yAEJGnAh5xdsZxpi6UaOnwrRYj0j5vbQ== matt@t440s"
     ]
   end
 
@@ -72,6 +78,7 @@ logrotate_app "spaghettiprogramming" do
   options ["missingok", "compress", "delaycompress", "notifempty", "dateext", "copytruncate"]
 end
 
+include_recipe 'iptables-ng'
 iptables_ng_rule '01-loopback-v4' do
   rule ['-i lo -j ACCEPT', '-i lo -d 127.0.0.0/8 -j REJECT']
   ip_version 4
@@ -152,9 +159,6 @@ iptables_ng_rule '13-output-ip6' do
   action :create_if_missing
   ip_version 6
 end
-
-include_recipe "chruby_install"
-include_recipe "ruby-install::install"
 
 directory app_root do
   owner app_user
@@ -298,8 +302,7 @@ template nginx_config_path do
 end
 
 nginx_site app_name do
-  config_path nginx_config_path
-  enable true
+  enable false
 end
 
 template "/etc/nginx/sites-available/nginx-server-status.conf" do
@@ -309,10 +312,13 @@ template "/etc/nginx/sites-available/nginx-server-status.conf" do
 end
 
 nginx_site "nginx-server-status.conf" do
-  config_path "/etc/nginx/sites-available/nginx-server-status.conf"
-  enable true
+  enable false
 end
 
-nginx_site :default do
+nginx_site 'default' do
   enable false
+end
+
+link '/opt/rubies/ruby-2.4.2' do
+  to '/opt/rubies/2.4.2'
 end

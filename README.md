@@ -16,9 +16,10 @@ The spaghettiprogramming.com blog has some useful features:
 
 ## Dependencies and Versions
 
-* Ruby 2.2.2
-* Rails 4.2.3
+* Ruby 2.4.2
+* Rails 4.2.10
 * PostgreSQL 9.x
+* Chef 13.5.3
 
 ## Test Suite
 
@@ -55,10 +56,11 @@ Ensure to change the values if needed.
 
 Add your public key to root's authorized keys on the server.
 
+Run locally in development environment:
 ```bash
 cd config/provision
 librarian-chef install
-knife solo prepare root@spaghettiprogramming-server
+knife solo prepare --bootstrap-version=13.5.3 root@spaghettiprogramming-server
 ```
 
 *After cookbook updates*
@@ -70,6 +72,37 @@ knife solo cook root@spaghettiprogramming-server
 
 This will run the role called `spaghettiprogramming` to provision the server.
 
+Run remotely on production environment:
+
+```bash
+createdb spaghettiprogramming_production
+```
+
+Then in the `spaghettiprogramming_production` database:
+```
+create role spaghettiprogramming with unencrypted password 'thepassword' login;
+alter database spaghettiprogramming_production owner to spaghettiprogramming
+```
+
+You can find the password by checking the production `database.yml` or by running `knife solo data bag show web_server database` in development environment.
+
+### SSH
+In the `/etc/ssh/sshd_config` of the deplyment destination comment out or remove the following:
+
+`AcceptEnv LANG LC_*`
+
+This prevents ssh clients from potentially sending incompatible locale environment variables.  Some VPS providers have set this while others have not.
+
+### Bundler
+
+Installer the bundler gem as the deploy user on the destination server.
+
+```bash
+sudo su - deploy
+chruby 2.4.2
+gem install bundle
+```
+
 ### Deploy the Application ###
 
 ```bash
@@ -78,4 +111,4 @@ cap production deploy
 
 ## Backups
 
-The application database and files uploaded via paperclip are backed up in `/var/backups/spaghettiprogramming`.
+The application database and files uploaded via paperclip are backed up in `/var/backups/application`.
