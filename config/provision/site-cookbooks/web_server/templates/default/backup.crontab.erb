@@ -1,4 +1,4 @@
 SHELL=/bin/bash
 
-0 5 * * * root tar -czvf /var/backups/spaghettiprogramming/files/spaghettiprogramming_$(date +\%d).tar.gz /var/www/spaghettiprogramming/current/public/system/*
-0 6 * * * root su postgres -c 'cd && pg_dump -Ox spaghettiprogramming_production | gzip > /var/backups/spaghettiprogramming/database/spaghettiprogramming_production_$(date +\%d).tar.gz'
+0 5 * * * root tar -czvf /var/backups/application/files/spaghettiprogramming_$(date +\%d).tar.gz /var/www/spaghettiprogramming/current/public/system/*
+0 6 * * * root su postgres -c 'cd && pg_dump -Ox spaghettiprogramming_production | gzip > /var/backups/application/database/spaghettiprogramming_production_$(date +\%d).tar.gz'
