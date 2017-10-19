@@ -6,7 +6,7 @@
   end
 end
 
-%w(git-core curl build-essential python-software-properties zlibc zlib1g-dev libreadline-dev libssl-dev libcurl4-openssl-dev emacs libxml2 libxml2-dev libxslt1.1 libxslt1-dev libyaml-dev libzmq1 libzmq-dev).each do |name|
+%w(git-core curl build-essential python-software-properties zlibc zlib1g-dev libreadline-dev libssl-dev libcurl4-openssl-dev emacs libxml2 libxml2-dev libxslt1.1 libxslt1-dev libyaml-dev libzmq1 libzmq-dev htop).each do |name|
   package name do
     action :install
   end
