@@ -56,6 +56,12 @@ Ensure to change the values if needed.
 
 Add your public key to root's authorized keys on the server.
 
+Update the remote server:
+
+```bash
+apt-get update; DEBIAN_FRONTEND=noninteractive apt-get upgrade -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew"
+```
+
 Run locally in development environment:
 ```bash
 cd config/provision
