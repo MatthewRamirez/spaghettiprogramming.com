@@ -15,8 +15,8 @@
 # something that quacks like a hash can be used to set
 # extended properties on the server.
 #server 'spaghettiprogramming.com', user: 'deploy', roles: %w{web app db}, primary: true
-set :branch, 'provision'
-set :domain, 'spaghettiprogramming-server'
+set :branch, 'update_rails'
+set :domain, '127.0.0.1'
 set :ssh_options, { port: 2222 }
 server fetch(:domain), user: 'deploy', roles: %w{web app db}
 

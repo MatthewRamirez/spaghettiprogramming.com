@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.3'
+gem 'rails', '~> 4.2'
 gem 'rack'
 gem 'haml'
 gem 'execjs'
@@ -24,7 +24,7 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier'
   gem 'bootstrap-sass'
   gem 'coffee-script'
 end
@@ -39,7 +39,7 @@ group :development do
     :git => 'git://github.com/jeremyolliver/annotate_models.git',
     :branch => 'rake_compatibility'
 
-  gem 'capistrano', '~> 3.1.0'
+  gem 'capistrano', '~> 3.4'
   gem 'capistrano-rails', '~> 1.1.0'
   gem 'capistrano-bundler'
   gem 'capistrano-chruby', '~> 0.1.1'

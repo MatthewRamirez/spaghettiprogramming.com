@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20140603214910) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "blog_attachments", force: true do |t|
+  create_table "blog_attachments", force: :cascade do |t|
     t.integer  "blog_post_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20140603214910) do
 
   add_index "blog_attachments", ["blog_post_id"], name: "index_blog_attachments_on_blog_post_id", using: :btree
 
-  create_table "blog_images", force: true do |t|
+  create_table "blog_images", force: :cascade do |t|
     t.integer  "blog_post_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20140603214910) do
 
   add_index "blog_images", ["blog_post_id"], name: "index_blog_images_on_blog_post_id", using: :btree
 
-  create_table "blog_posts", force: true do |t|
+  create_table "blog_posts", force: :cascade do |t|
     t.text     "title",                              null: false
     t.text     "body",                               null: false
     t.integer  "category_id"
@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 20140603214910) do
   add_index "blog_posts", ["published"], name: "index_blog_posts_on_published", using: :btree
   add_index "blog_posts", ["slug"], name: "index_blog_posts_on_slug", using: :btree
 
-  create_table "categories", force: true do |t|
+  create_table "categories", force: :cascade do |t|
     t.text     "name",                         null: false
     t.datetime "created_at", default: "now()"
     t.datetime "updated_at", default: "now()"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20140603214910) do
 
   add_index "categories", ["name"], name: "index_categories_on_name", unique: true, using: :btree
 
-  create_table "sessions", force: true do |t|
+  create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false
     t.text     "data"
     t.datetime "created_at"
@@ -78,7 +78,7 @@ ActiveRecord::Schema.define(version: 20140603214910) do
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.text     "email",                             null: false
     t.text     "identifier_url"
     t.text     "nick"
