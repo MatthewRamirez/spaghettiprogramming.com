@@ -48,6 +48,12 @@ These files are managed through chef.  See `config/provision`
 
 *One-time setup*
 
+Must use this specific version of `knife-solo` to make it work with `net-ssh` versions >= 4.x.
+
+```bash
+gem install knife-solo --pre
+```
+
 In `/etc/hosts` on your development machine add the line similar to:
 
 `192.168.1.20 spaghettiprogramming-server`
