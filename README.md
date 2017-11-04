@@ -121,6 +121,42 @@ gem install bundle
 cap production deploy
 ```
 
+A default bundle config file may get created in `/home/deploy/.bundle/config` on the production server with the content:
+
+``
+    BUNDLE_BIN: bin
+    BUNDLE_SHEBANG: chruby-exec
+    BUNDLE_DISABLE_SHARED_GEMS: '1'
+    BUNDLE_PATH: vendor
+
+``
+
+This causes the following exception when deploying via `bundle exec cap production deploy`:
+
+``
+00:05 bundler:install
+      01 /usr/local/bin/chruby-exec 2.4.2 -- bundle install --path /u/apps/intranet/shared/bundle --without development test --deployment
+      01 /opt/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/gems/bundler-1.16.0/lib/bundler/yaml_serializer.rb:67:in `block in load': undefined method `[]=' for nil:NilClass (NoMethodError)
+      01  from /opt/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/gems/bundler-1.16.0/lib/bundler/yaml_serializer.rb:55:in `each'
+      01  from /opt/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/gems/bundler-1.16.0/lib/bundler/yaml_serializer.rb:55:in `load'
+      01  from /opt/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/gems/bundler-1.16.0/lib/bundler/settings.rb:408:in `block in load_config'
+      01  from /opt/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/gems/bundler-1.16.0/lib/bundler/shared_helpers.rb:118:in `filesystem_access'
+      01  from /opt/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/gems/bundler-1.16.0/lib/bundler/settings.rb:404:in `load_config'
+      01  from /opt/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/gems/bundler-1.16.0/lib/bundler/settings.rb:80:in `initialize'
+      01  from /opt/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/gems/bundler-1.16.0/lib/bundler.rb:257:in `new'
+      01  from /opt/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/gems/bundler-1.16.0/lib/bundler.rb:257:in `settings'
+      01  from /opt/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/gems/bundler-1.16.0/lib/bundler/env.rb:20:in `report'
+      01  from /opt/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/gems/bundler-1.16.0/lib/bundler/friendly_errors.rb:96:in `request_issue_report_for'
+      01  from /opt/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/gems/bundler-1.16.0/lib/bundler/friendly_errors.rb:46:in `log_error'
+      01  from /opt/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/gems/bundler-1.16.0/lib/bundler/friendly_errors.rb:126:in `rescue in with_friendly_errors'
+      01  from /opt/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/gems/bundler-1.16.0/lib/bundler/friendly_errors.rb:122:in `with_friendly_errors'
+      01  from /opt/rubies/ruby-2.4.2/lib/ruby/gems/2.4.0/gems/bundler-1.16.0/exe/bundle:22:in `<top (required)>'
+      01  from /opt/rubies/ruby-2.4.2/bin/bundle:23:in `load'
+      01  from /opt/rubies/ruby-2.4.2/bin/bundle:23:in `<main>'
+``
+
+To remedy this, remove the file `/home/deploy/.bundle/config`.
+
 ## Backups
 
 The application database and files uploaded via paperclip are backed up in `/var/backups/application`.
