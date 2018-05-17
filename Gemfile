@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2'
+gem 'rails', '4.2.10'
 gem 'rack'
 gem 'haml'
 gem 'execjs'
 gem 'jquery-rails'
-gem 'pg'
+gem 'pg', '~> 0.21'
 gem 'less-rails'
 gem 'paperclip', '~> 3.0'
 gem 'redcarpet'
@@ -20,14 +20,11 @@ gem 'puma'
 
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', :platforms => :ruby
-
-  gem 'uglifier'
-  gem 'bootstrap-sass'
-  gem 'coffee-script'
-end
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+gem 'therubyracer', :platforms => :ruby
+gem 'uglifier', '>= 1.0.3'
+gem 'bootstrap-sass'
+gem 'coffee-script'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -43,6 +40,5 @@ group :development do
   gem 'capistrano-rails', '~> 1.1.0'
   gem 'capistrano-bundler'
   gem 'capistrano-chruby', '~> 0.1.1'
-  gem 'byebug'
 end
 
