@@ -1,9 +1,10 @@
 {
   "id": "database",
   "password": {
-    "encrypted_data": "yT+puQM/0RqXAgsNA+6Dp+4GQ6A09GLAN73hHNsadilgrXQKm4LwiSCqttA/\nu9Dp\n",
-    "iv": "Z+RDFSmn7g55LktSaFUvfQ==\n",
-    "version": 1,
-    "cipher": "aes-256-cbc"
+    "encrypted_data": "0maQnujiwOp6ay9xK9ODVBi7p9FW0nqB5442S917UoEBmsUD9C5IaDz2dg==\n",
+    "iv": "cnpmYGkkTIO1uUrD\n",
+    "auth_tag": "MNo4y3fnjuOzTax5oFlQFQ==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
   }
 }
