@@ -1,4 +1,4 @@
-lock '3.9.1'
+lock '3.10.2'
 
 set :application, 'spaghettiprogramming'
 set :deploy_user, 'deploy'
