@@ -1,22 +1,9 @@
 class BlogPostsController < ApplicationController
-  include ApplicationHelper
 
-  before_filter :redirect_to_root_unless_signed_in, :except => [ :index, :slug, :show, :archive ]
+  before_filter :redirect_to_root_unless_signed_in, :except => [ :index, :slug, :show ]
 
   def index
     redirect_to root_path
-  end
-
-  def archive
-    @title = "Archived Blog Posts"
-    @blog_posts = BlogPost.archive(params[:id]).paginate(:page => params[:page], :per_page => 5)
-    @blog_posts.count > 0 ? render('blog_posts/index') : render('blog_posts/no_posts_in_archive')
-  end
-
-  def unpublished_index
-    @title = "Unpublished Blog Posts"
-    @blog_posts = BlogPost.unpublished.paginate(:page => params[:page], :per_page => 20)
-    render 'blog_posts/unpublished_index'
   end
 
   def show
@@ -24,34 +11,18 @@ class BlogPostsController < ApplicationController
     @blog_post.nil? ? not_found : redirect_to(blog_slug_path(@blog_post.slug))
   end
 
-  def slug
-    @blog_post = signed_in? ? BlogPost.find_by_slug(params[:slug]) : BlogPost.published.find_by_slug(params[:slug])
-    @blog_post.nil? ? not_found : @title = @blog_post.title
-    render 'blog_posts/show'
-  end
-
   def new
     @title = 'New Blog Post'
     @blog_post = BlogPost.new({ :published => false })
-    @categories = Category.all
-    @blog_images = []
-    @blog_attachments = []
   end
 
   def create
-    @categories = Category.all
-    @blog_images = []
-    @blog_attachments = []
-    @blog_post = current_user.blog_posts.build(blog_post_params)
-    @blog_post.save ? redirect_to(root_path) : render(:new)
+    BlogPost.create(blog_post_params) ? redirect_to(root_path) : render(:new)
   end
 
   def edit
     @title = 'Edit Blog Post'
     @blog_post = BlogPost.find params[:id]
-    @categories = Category.all
-    @blog_images = @blog_post.blog_images
-    @blog_attachments = @blog_post.blog_attachments
   end
 
   def update
@@ -72,11 +43,7 @@ class BlogPostsController < ApplicationController
   end
 
   def blog_post_params
-    params.require(:blog_post).permit( :title, :body, :user_id, :category_id, :published, :slug,
-      {:blog_images_attributes => [:id, :blog_post_id, :image_file_name, :image_content_type, :image_file_size, :image_updated_at, :_destroy]},
-      {:blog_images_array => []},
-      {:blog_attachments_attributes => [:id, :blog_post_id, :file_file_name, :file_content_type, :file_file_size, :file_updated_at, :_destroy]},
-      {:blog_attachments_array => []})
+    params.require(:blog_post).permit(:title, :body, :user_id, :published, :slug)
   end
 
 end

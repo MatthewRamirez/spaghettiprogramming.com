@@ -1,44 +1,24 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.10'
+gem 'rails'
 gem 'rack'
-gem 'haml'
-gem 'execjs'
-gem 'jquery-rails'
-gem 'pg', '~> 0.21'
-gem 'less-rails'
-gem 'paperclip', '~> 3.0'
-gem 'redcarpet'
-gem 'validates_email_format_of'
+gem 'pg'
 gem 'will_paginate'
-gem 'bcrypt-ruby', '~> 3.1'
+gem 'bcrypt-ruby'
 gem 'activerecord-session_store'
-gem 'twitter-bootstrap-rails',
-  :git => 'https://github.com/seyhunak/twitter-bootstrap-rails.git',
-  :branch => 'bootstrap3'
 gem 'puma'
 
-# Gems used only for assets and not required
-# in production environments by default.
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', :platforms => :ruby
 gem 'uglifier', '>= 1.0.3'
-gem 'bootstrap-sass'
-gem 'coffee-script'
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
 end
 
 group :development do
-  gem 'annotate',
-    :git => 'git://github.com/jeremyolliver/annotate_models.git',
-    :branch => 'rake_compatibility'
-
-  gem 'capistrano', '~> 3.4'
-  gem 'capistrano-rails', '~> 1.1.0'
+  gem 'capistrano'
+  gem 'capistrano-rails'
   gem 'capistrano-bundler'
-  gem 'capistrano-chruby', '~> 0.1.1'
+  gem 'capistrano-chruby'
 end
 

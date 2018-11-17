@@ -1,14 +1,10 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   has_secure_password
   has_many :blog_posts
 
   validates_presence_of :password, :on => :create
   validates :email, :presence => true, :uniqueness => { :case_sensitive => false },
   :length => { :maximum => 100 }
-
-  def self.create_from_auth(user_params)
-    create!(user_params)
-  end
 
   def self.new_random_password(string)
     Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{string}--")[0,12]
@@ -22,16 +18,4 @@ class User < ActiveRecord::Base
 
 end
 
-# == Schema Information
-#
-# Table name: users
-#
-#  id              :integer         not null, primary key
-#  email           :text            not null
-#  identifier_url  :text
-#  nick            :text
-#  created_at      :datetime
-#  updated_at      :datetime
-#  password_digest :text
-#
 
