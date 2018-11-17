@@ -7,6 +7,10 @@ gem 'will_paginate'
 gem 'bcrypt-ruby'
 gem 'activerecord-session_store'
 gem 'puma'
+gem 'redcarpet'
+gem 'coffee-script'
+gem 'jquery-rails'
+gem 'sass-rails'
 
 gem 'therubyracer', :platforms => :ruby
 gem 'uglifier', '>= 1.0.3'

@@ -12,7 +12,7 @@ SpaghettiprogrammingCom::Application.routes.draw do
 
   get '/signin', :to => 'sessions#new'
   get '/signout', :to => 'sessions#destroy'
-  get '/(:id)' => 'pages#show', :as => 'static'
+  #get '/(:id)' => 'pages#show', :as => 'static'
   root :to => 'blog_posts#index'
 
   unless Rails.env == 'development'

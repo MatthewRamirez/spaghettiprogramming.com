@@ -14,13 +14,6 @@
     <%= javascript_include_tag 'application' %>
     <%= stylesheet_link_tag "application", :media => "all" %>
 
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
 
   <body>
@@ -85,11 +78,7 @@
             <ol class="list-unstyled">
               <% (0..12).each do |interval| %>
                 <% next if Time.now().month == interval %>
-                <li><a href="
-                  <%= archive_blog_posts_path("#{(Time.now() - interval.months).year.to_s.rjust(4, '0') +
-                    Date::MONTHNAMES.index((Date::MONTHNAMES[Time.now().month - interval])).to_s.rjust(2, '0')}") %>
-                  "><%= "#{Date::MONTHNAMES[Time.now().month - interval]} #{(Time.now() - interval.months).year}" %></a>
-                </li>
+                <li>hello</li>
               <% end %>
             </ol>
           </div>
@@ -98,7 +87,6 @@
             <ol class="list-unstyled">
               <li><a href="http://github.com/MatthewRamirez">GitHub</a></li>
               <li><a href="https://www.linkedin.com/pub/matthew-ramirez/4/49/16b">LinkedIn</a></li>
-              <li><a href="https://plus.google.com/115745403673562093230">Google+</a></li>
             </ol>
           </div>
         </div><!-- /.blog-sidebar -->
@@ -115,13 +103,5 @@
       </p>
     </div>
 
-    <% if !signed_in? %>
-      <%= render(:partial => '/layouts/ga') %>
-    <% end %>
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   </body>
 </html>

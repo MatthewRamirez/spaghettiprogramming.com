@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :redirect_to_root_unless_signed_in
+  before_action :redirect_to_root_unless_signed_in
 
   def edit
     @user = User.find(session[:user_id])
