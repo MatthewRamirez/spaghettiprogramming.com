@@ -1,6 +1,6 @@
 <tr>
   <td>
-    <%= link_to(blog_post.title, blog_slug_path(blog_post.slug), { :title => blog_post.title }) %>
+    <%= link_to(blog_post.title, blog_post_path(blog_post.slug), { :title => blog_post.title }) %>
   </td>
   <td>
     <%= truncate( blog_post.body, {:length => 200} ) %>

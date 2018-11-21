@@ -2,7 +2,7 @@
   <div itemscope itemtype='http://schema.org/BlogPosting'>
     <span itemprop="name">
       <h2 class="blog-post-title">
-        <%= link_to(blog_post.title, blog_slug_path(blog_post.slug), { :itemprop => "url", :title => blog_post.title }) %>
+        <%= link_to(blog_post.title, blog_post_path(blog_post.slug), { :itemprop => "url", :title => blog_post.title }) %>
       </h2>
     </span>
     <%= render( :partial => '/blog_posts/blog_post_meta_header', :locals => { :blog_post => blog_post }) %>

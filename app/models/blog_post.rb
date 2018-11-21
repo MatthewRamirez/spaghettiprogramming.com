@@ -14,11 +14,15 @@ class BlogPost < ApplicationRecord
   end
 
   def self.published
-    where :published => true
+    where("published").order("created_at desc")
   end
 
   def self.unpublished
-    where :published => false
+    where("not published").order("created_at desc")
+  end
+
+  def self.by_id_or_slug(value)
+    where("id = ? or slug = ?", value.to_i, value.to_s).last
   end
 
   private

@@ -73,16 +73,7 @@
                 {:title => 'github', :target => '_blank'}) %>
             </p>
           </div>
-          <div class="sidebar-module">
-            <h4>Archives</h4>
-            <ol class="list-unstyled">
-              <% (0..12).each do |interval| %>
-                <% next if Time.now().month == interval %>
-                <li>hello</li>
-              <% end %>
-            </ol>
-          </div>
-          <div class="sidebar-module">
+          <div class="sidebar-module sidebar-module-inset">
             <h4>Elsewhere</h4>
             <ol class="list-unstyled">
               <li><a href="http://github.com/MatthewRamirez">GitHub</a></li>

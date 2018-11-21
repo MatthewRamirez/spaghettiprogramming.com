@@ -5,9 +5,6 @@ SpaghettiprogrammingCom::Application.routes.draw do
     collection do
       resources :unpublished, only: [:index]
     end
-    member do
-      resources :slugs, only: [:show]
-    end
   end
 
   get '/signin', :to => 'sessions#new'
