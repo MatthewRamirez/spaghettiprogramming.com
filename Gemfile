@@ -11,6 +11,7 @@ gem 'redcarpet'
 gem 'coffee-script'
 gem 'jquery-rails'
 gem 'sass-rails'
+gem 'rouge'
 
 gem 'therubyracer', :platforms => :ruby
 gem 'uglifier', '>= 1.0.3'

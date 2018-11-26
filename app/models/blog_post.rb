@@ -3,7 +3,6 @@ class BlogPost < ApplicationRecord
   belongs_to :user
 
   before_validation :set_slug
-  before_save :render_content
 
   validates_uniqueness_of :slug, :title
   validates_presence_of :slug, :title, :body
@@ -25,13 +24,8 @@ class BlogPost < ApplicationRecord
     where("id = ? or slug = ?", value.to_i, value.to_s).last
   end
 
-  private
-
-  def render_content
-    renderer = Redcarpet::Render::HTML.new
-    extensions = { autolink: true }
-    redcarpet = Redcarpet::Markdown.new( renderer, extensions )
-    rendered_content = redcarpet.render(body)
+  def rendered_content
+   @rendered_content ||= Redcarpet::Markdown.new(BlogRender, fenced_code_blocks: true).render(body).html_safe
   end
 
 end

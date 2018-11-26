@@ -142,6 +142,7 @@ GEM
       ffi (>= 0.5.0, < 2)
     redcarpet (3.4.0)
     ref (2.0.0)
+    rouge (3.3.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.2)
@@ -212,6 +213,7 @@ DEPENDENCIES
   rack
   rails
   redcarpet
+  rouge
   rspec-rails
   sass-rails
   therubyracer

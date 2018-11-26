@@ -7,7 +7,7 @@ class BlogPostsController < ApplicationController
   end
 
   def show
-    @blog_post = signed_in? ? BlogPost.find(params[:id]) : BlogPost.published.by_id_or_slug(params[:id])
+    @blog_post = signed_in? ? BlogPost.by_id_or_slug(params[:id]) : BlogPost.published.by_id_or_slug(params[:id])
   end
 
   def new
