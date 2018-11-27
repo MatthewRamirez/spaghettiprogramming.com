@@ -1,6 +1,6 @@
 class BlogPostsController < ApplicationController
 
-  before_action :redirect_to_root_unless_signed_in, :except => [ :index, :slug, :show ]
+  before_action :redirect_to_root_unless_signed_in, :except => [ :index, :show ]
 
   def index
     @blog_posts = BlogPost.published.paginate(:page => params[:page], :per_page => 5)
