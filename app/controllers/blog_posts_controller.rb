@@ -16,7 +16,8 @@ class BlogPostsController < ApplicationController
   end
 
   def create
-    BlogPost.create(blog_post_params) ? redirect_to(root_path) : render(:new)
+    @blog_post = BlogPost.create(blog_post_params)
+    @blog_post.valid? ? redirect_to(root_path) : render(:new)
   end
 
   def edit
@@ -42,7 +43,8 @@ class BlogPostsController < ApplicationController
   end
 
   def blog_post_params
-    params.require(:blog_post).permit(:title, :body, :user_id, :published, :slug)
+    params[:blog_post][:user_id] = current_user.id
+    params.require(:blog_post).permit(:title, :body, :user_id, :published, :slug, :user_id)
   end
 
 end
