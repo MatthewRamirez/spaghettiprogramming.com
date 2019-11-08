@@ -1,9 +1,0 @@
-{
-  "id": "database",
-  "password": {
-    "encrypted_data": "yT+puQM/0RqXAgsNA+6Dp+4GQ6A09GLAN73hHNsadilgrXQKm4LwiSCqttA/\nu9Dp\n",
-    "iv": "Z+RDFSmn7g55LktSaFUvfQ==\n",
-    "version": 1,
-    "cipher": "aes-256-cbc"
-  }
-}
