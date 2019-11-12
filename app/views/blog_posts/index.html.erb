@@ -1,8 +1,0 @@
-<div itemscope itemtype="http://schema.org/Blog">
-  <p>
-    <% @blog_posts.each do |blog_post| %>
-      <%= render :partial => '/blog_posts/blog_post', :locals => { :blog_post => blog_post } %>
-    <% end %>
-    <%= render(:partial => '/blog_posts/pager', :locals => { :blog_posts => @blog_posts }) %>
-  </p>
-</div>
