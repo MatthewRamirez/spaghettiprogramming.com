@@ -9,7 +9,6 @@ class BlogPost < ActiveRecord::Base
   accepts_nested_attributes_for :blog_attachments, :allow_destroy => true
 
   before_validation :slugify
-  before_save :render_content
   before_save :set_created_at_month_and_year
 
   validates_uniqueness_of :slug, :title
@@ -62,13 +61,12 @@ class BlogPost < ActiveRecord::Base
     end
   end
 
-  private
-  def render_content
+  def rendered_content
     require 'redcarpet'
     renderer = Redcarpet::Render::HTML.new
     extensions = { autolink: true }
     redcarpet = Redcarpet::Markdown.new( renderer, extensions )
-    self.rendered_content = redcarpet.render self.body
+    redcarpet.render self.body
   end
 
 end
