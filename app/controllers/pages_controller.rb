@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  def show
-    render(params[:id] || 'home')   
+
+  def home
   end
 end
